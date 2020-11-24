@@ -1,0 +1,221 @@
+.navigation {
+  /*background-color: #0f0e20;*/
+  background-color: #faba1c;
+}
+
+.navigation nav {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navigation nav .collapse ul li a {
+  color: #ffffff !important;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.navigation nav .collapse ul li .dropdown-item {
+  color: black !important;
+}
+
+body {
+  background: #e5e5e5;
+}
+
+.course {
+  margin-top: 60px;
+}
+
+.course-bonuses {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-bonuses img {
+  background-color: black;
+  border-radius: 100%;
+  border: solid;
+}
+
+.course .course-header .col-lg-8 {
+  /*background-color: #ffffff;
+  width: 780px;
+  height: 340px;
+  border-radius: 10px;*/
+/*  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../assets/Basic/Almond Sour Cream Pound Cake.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/Basic/Almond Sour Cream Pound Cake.jpg");*/
+  /*background-repeat: no-repeat;
+  background-size: auto;
+  padding: 30px;*/
+}
+
+.course .course-header .col-lg-8 h1 {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 36px;
+  line-height: 36px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.course .course-header .col-lg-8 .desc {
+  margin-top: 180px;
+}
+
+.course .course-header .col-lg-8 .desc .course-btn {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 20px 16px;
+  background: #ffc107;
+  border-radius: 10px;
+  text-decoration: none;
+  -webkit-transition: 1s ease-out;
+  transition: 1s ease-out;
+}
+
+.course .course-header .col-lg-8 .desc .course-btn:hover {
+  background-color: #e8c86a;
+}
+
+.course .course-header .col-lg-8 .desc .course-price {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 20px 16px;
+  background: #ffc107;
+  border-radius: 10px;
+  max-width: 242px;
+}
+
+.course .course-header .col-lg-3 {
+  -webkit-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  /*height: 260px;*/
+  background-color: #ffffff;
+}
+
+.course .course-header .col-lg-3 .course-header-detail {
+  padding: 20px;
+}
+
+.course .course-header .col-lg-3 .course-header-detail .detail p {
+  font-size: 18px;
+}
+
+.course .course-body .col-lg-8 {
+  -webkit-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-top: 30px;
+  background-color: #ffffff;
+}
+
+.course .course-body .col-lg-8 h1 {
+  margin-left: 25px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: #17469e;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.course .course-body .col-lg-8 hr {
+  border-top: 2px solid #17469e;
+}
+
+.course .course-body .col-lg-8 p {
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  /*margin: 20px;*/
+}
+
+.footer-section {
+  margin-top: 10px;
+  background: #e5e5e5;
+  padding-top: 75px;
+}
+
+.footer-left {
+  margin-bottom: 30px;
+}
+
+.footer-left .footer-logo img {
+  height: 154px !important;
+}
+
+.footer-widget h5 {
+  color: #000000;
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.footer-widget ul li {
+  list-style: none;
+}
+
+.footer-widget ul li a {
+  line-height: 36px;
+  font-size: 16px;
+  color: #000000;
+  opacity: 0.8;
+}
+
+.copyright-reserved {
+  padding: 15px 0;
+  margin-top: 45px;
+}
+
+.copyright-reserved .copyright-text {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000000;
+  opacity: 0.5;
+}
+
+.copyright-reserved .copyright-text a {
+  color: #b2b2b2;
+}
+
+.copyright-reserved .copyright-text a:hover {
+  color: #e7ab3c;
+}
+
+.copyright-reserved .copyright-text i {
+  color: #cc2424;
+}
+
+.copyright-reserved .copyright-text .payment-pic {
+  float: right;
+}
+
+@media (max-width: 768px) {
+  .course .row .col-lg-3 {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 414px) {
+  .course .course-header .col-lg-8 .desc {
+    margin-top: 100px;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    text-align: center;
+  }
+  .course .course-header .col-lg-8 .desc .course-price {
+    margin-top: 5px !important;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .course .course-header .col-lg-8 .desc {
+    margin-top: 50px;
+  }
+}
+/*# sourceMappingURL=incourse.css.map */

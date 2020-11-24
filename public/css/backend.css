@@ -1,0 +1,19 @@
+.badge-action {
+	cursor: pointer;
+}
+
+.star {
+	color: red;
+}
+
+.card-header {
+	font-weight: bold;
+}
+
+table {
+	font-size: 14px;
+}
+
+.tooltip-inner {
+    max-width: 500px;
+}

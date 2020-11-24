@@ -1,0 +1,86 @@
+* {
+  font-family: "Inter", sans-serif;
+}
+
+* body {
+  background-image: url("../assets/bg.png");
+  min-height: 1000px;
+}
+
+* body .login-form {
+  margin-top: 60px;
+  max-width: 581px;
+  min-height: 430px;
+  background-color: #ffffff;
+  padding: 40px 108px 30px 108px;
+  border-radius: 7px;
+  color: #434856;
+}
+
+* body .login-form h1 {
+  font-size: 20px;
+}
+
+* body .login-form .form-group label,
+* body .login-form .form-group p,
+* body .login-form .form-group a {
+  font-size: 14px;
+  color: #434856;
+}
+
+* body .login-form button {
+  width: 100%;
+  background-color: #1f5dd1;
+}
+
+* body .regis-form {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  max-width: 904px;
+  height: auto;
+  background-color: #ffffff;
+  padding: 70px;
+  border-radius: 7px;
+  color: #434856;
+}
+
+* body .regis-form form h1 {
+  font-size: 24px;
+}
+
+* body .regis-form form h2 {
+  font-size: 18px;
+}
+
+* body .regis-form form .btn {
+  background-color: #1f5dd1;
+}
+
+* body footer {
+  border-radius: 7px;
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 581px;
+  font-size: 14px;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+@media (max-width: 414px) {
+  body {
+    padding: 7px;
+  }
+  body .login-form {
+    max-width: 581px;
+    min-height: 430px;
+    padding: 10px;
+  }
+  body .login-form h1 {
+    font-size: 20px;
+  }
+  body .regis-form {
+    padding: 20px;
+  }
+}
+/*# sourceMappingURL=gateway.css.map */
