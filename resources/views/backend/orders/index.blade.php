@@ -30,7 +30,7 @@
                                     <th scope="row" width="10">{{ $loop->iteration }}</th>
                                     <td>{{ $order->invoice_number }}</td>
                                     <td>{{ $order->course->name }}</td>
-                                    <td>{{ $order->user->name }}</td>
+                                    <td>{{ $order->user->first_name }} {{ $order->user->last_name }}</td>
                                     <td>{{ formatRupiah($order->total_price) }}</td>
                                     <td>
                                         @if ($order->payment_status == 'paid')

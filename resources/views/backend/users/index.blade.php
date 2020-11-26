@@ -35,7 +35,7 @@
                         	@foreach ($users as $user)
                                 <tr>
                                     <th scope="row" width="10">{{ $loop->iteration }}</th>
-                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone_number }}</td>
                                     <td class="role-column">{{ $user->role_name }}</td>

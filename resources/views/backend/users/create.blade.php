@@ -19,7 +19,7 @@
                 				<div class="col">
                 					<label for="role"><span class="star">*</span> Role</label>
                 					<select id="role" class="form-control" name="role_id" required>
-                						<option value="">Pilih Role</option>
+                						<option value="">Select Role</option>
 
                 						<option value="1">Root</option>
                 						<option value="2">Admin</option>
@@ -32,9 +32,13 @@
                 		@endif
 
 				        <div class="row">
-				            <div class="col">
-				                <label for="name"><span class="star">*</span> Nama Lengkap</label>
-				                <input type="text" id="name" class="form-control" name="name" required>
+				            <div class="col-md-6">
+				                <label for="first_name"><span class="star">*</span> First Name</label>
+				                <input type="text" id="first_name" class="form-control" name="first_name" required>
+				            </div>
+				            <div class="col-md-6">
+				                <label for="last_name">Last Name</label>
+				                <input type="text" id="last_name" class="form-control" name="last_name">
 				            </div>
 				        </div>
 				        <div class="row mt-2">
@@ -43,7 +47,7 @@
 				                <input type="email" id="email" class="form-control" name="email" required>
 				            </div>
 				            <div class="col-md-6">
-				                <label for="phone"><span class="star">*</span> Nomor Telpon</label>
+				                <label for="phone"><span class="star">*</span> Phone Number</label>
 				                <input type="text" id="phone" class="form-control" name="phone_number" placeholder="+62" required>
 				            </div>
 				        </div>
@@ -66,9 +70,9 @@
 
 				        <div class="row mt-2">
 				            <div class="col">
-				                <label for="city"><span class="star">*</span> Kota / Kabupaten Saat Ini</label>
+				                <label for="city"><span class="star">*</span> City</label>
 				                <select id="city" class="form-control" name="subdistrict_id" required>
-				                    <option value="">Pilih Kota</option>
+				                    <option value="">Select Kota</option>
 				                    
 				                    @foreach ($subdistricts as $subdistrict)
 				                    	<option value="{{ $subdistrict->id }}">{{ $subdistrict->kelurahan }}, {{ $subdistrict->kecamatan }}, {{ $subdistrict->city }}</option>
@@ -79,11 +83,11 @@
 
 				        <div class="row mt-2">
 				            <div class="col-md-6">
-				                <label for="province"><span class="star">*</span> Provinsi</label>
+				                <label for="province"><span class="star">*</span> Province</label>
 				                <input type="text" id="province" class="form-control" name="province" disabled required>
 				            </div>
 				            <div class="col-md-6">
-				                <label for="postal_code"><span class="star">*</span> Kode Pos</label>
+				                <label for="postal_code"><span class="star">*</span> Postal Code</label>
 				                <input type="text" id="postal_code" class="form-control" disabled required>   
 				            </div>
 				        </div>

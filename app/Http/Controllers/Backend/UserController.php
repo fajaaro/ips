@@ -42,9 +42,9 @@ class UserController extends Controller
         $user = $userService->create($request);
 
         if ($user) {
-            return redirect()->route('backend.users.index')->with('success', 'Berhasil mendaftarkan ' . $user->name . ' sebagai member!');
+            return redirect()->route('backend.users.index')->with('success', 'Berhasil mendaftarkan ' . $user->first_name . ' ' . $user->last_name . ' sebagai member!');
         } else {
-            return redirect()->route('backend.users.index')->with('failed', 'Gagal mendaftarkan ' . $user->name . ' sebagai member!');            
+            return redirect()->route('backend.users.index')->with('failed', 'Gagal mendaftarkan ' . $user->first_name . ' ' . $user->last_name . ' sebagai member!');            
         }
     }
 
@@ -85,7 +85,7 @@ class UserController extends Controller
     {
         $updatedUser = $userService->update($request, $id);
 
-        return redirect()->route('backend.users.index')->with('success', 'Berhasil memperbarui data dari ' . $updatedUser->name . '!');            
+        return redirect()->route('backend.users.index')->with('success', 'Berhasil memperbarui data dari ' . $updatedUser->first_name . ' ' . $updatedUser->last_name . '!');            
     }
 
     public function destroy($id, UserService $userService)
@@ -93,9 +93,9 @@ class UserController extends Controller
         $deletedUser = User::find($id);    
 
         if ($userService->destroy($id)) {
-            return redirect()->route('backend.users.index')->with('success', 'Berhasil menghapus ' . $deletedUser->name . '!');            
+            return redirect()->route('backend.users.index')->with('success', 'Berhasil menghapus ' . $deletedUser->first_name . ' ' . $deletedUser->last_name . '!');            
         } else {
-            return redirect()->route('backend.users.index')->with('failed', 'Gagal menghapus ' . $deletedUser->name . '!');                        
+            return redirect()->route('backend.users.index')->with('failed', 'Gagal menghapus ' . $deletedUser->first_name . ' ' . $deletedUser->last_name . '!');                        
         }
     }
 }

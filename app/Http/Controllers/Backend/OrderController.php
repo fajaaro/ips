@@ -33,7 +33,7 @@ class OrderController extends Controller
     {
         $order = $orderService->create($request);
 
-        return redirect()->route('backend.orders.index')->with('success', 'Berhasil membuat order baru untuk ' . $order->user->name . '!');
+        return redirect()->route('backend.orders.index')->with('success', 'Berhasil membuat order baru untuk ' . $order->user->first_name . ' ' . $order->user->last_name . '!');
     }
 
     public function show($id)
@@ -60,7 +60,7 @@ class OrderController extends Controller
     {
         $updatedOrder = $orderService->update($request, $id);
 
-        return redirect()->route('backend.orders.index')->with('success', 'Berhasil memperbarui data orderan milik ' . $updatedOrder->user->name . '!');                    
+        return redirect()->route('backend.orders.index')->with('success', 'Berhasil memperbarui data orderan milik ' . $updatedOrder->user->first_name . ' ' . $updatedOrder->user->last_name . '!');                    
     }
 
     public function destroy($id, OrderService $orderService)
@@ -68,9 +68,9 @@ class OrderController extends Controller
         $deletedOrder = Order::find($id);    
 
         if ($orderService->destroy($id)) {
-            return redirect()->route('backend.orders.index')->with('success', 'Berhasil menghapus orderan milik ' . $deletedOrder->user->name . '!');            
+            return redirect()->route('backend.orders.index')->with('success', 'Berhasil menghapus orderan milik ' . $deletedOrder->user->first_name . ' ' . $deletedOrder->user->last_name . '!');            
         } else {
-            return redirect()->route('backend.orders.index')->with('failed', 'Gagal menghapus orderan milik ' . $deletedOrder->user->name . '!');                        
+            return redirect()->route('backend.orders.index')->with('failed', 'Gagal menghapus orderan milik ' . $deletedOrder->user->first_name . ' ' . $deletedOrder->user->last_name . '!');                        
         }
     }
 }

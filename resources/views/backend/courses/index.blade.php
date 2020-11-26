@@ -28,7 +28,7 @@
                                     <td>{{ $course->name }}</td>
                                     <td>{{ formatRupiah($course->price) }}</td>
                                     <td>
-                                        <span data-html="true" data-toggle="tooltip" data-placement="right" title="@foreach($course->users as $user) {{ '<span class="float-left">' . $user->name . '</span><br>' }} @endforeach">{{ $course->users()->count() }}
+                                        <span data-html="true" data-toggle="tooltip" data-placement="right" title="@foreach($course->users as $user) {{ '<span class="float-left">' . $user->first_name . ' ' . $user->last_name . '</span><br>' }} @endforeach">{{ $course->users()->count() }}
                                         </span>
                                     </td>
                                     <td>{{ formatDate($course->created_at) }}</td>

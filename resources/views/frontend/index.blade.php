@@ -25,7 +25,7 @@
                         <a href="{{ route('frontend.courses.index') }}" class="nav-link actived ">Courses</a>
                     </li>
                     <li class="nav-item mx-md-2">
-                        <a href="courses.html" class="nav-link">Bundle</a>
+                        <a href="{{ route('frontend.courses.index') . '?type=bundle' }}" class="nav-link">Bundle</a>
                     </li>
                     <li class="nav-item mx-md-2">
                         <a href="courses.html" class="nav-link">About</a>
@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Hi, {{ $user->name }}</a>
+                        <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Hi, {{ $user->first_name }}</a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a href="{{ route('frontend.profiles.index') }}" class="dropdown-item" style="color: #000000;">My Account</a>
                             <a href="{{ route('logout') }}" class="dropdown-item" style="color: #000000;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>

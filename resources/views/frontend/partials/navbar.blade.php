@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Hi, {{ Auth::user()->name }}</a>
+                    <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Hi, {{ Auth::user()->first_name }}</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="{{ route('frontend.profiles.index') }}" class="dropdown-item" style="color: #000000;">My Account</a>
                         <a href="login.html" class="dropdown-item" style="color: #000000;">Logout</a>

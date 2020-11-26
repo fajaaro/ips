@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     {
     	$root = new User();
     	$root->role_id = 1;
-    	$root->name = 'Root';
+    	$root->first_name = 'Root';
     	$root->email = 'root@ips.com';
     	$root->email_verified_at = now();
     	$root->phone_number = '111111111111';
@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
 
     	$admin = new User();
     	$admin->role_id = 2;
-    	$admin->name = 'Admin';
+    	$admin->first_name = 'Admin';
     	$admin->email = 'admin@ips.com';
     	$admin->email_verified_at = now();
     	$admin->phone_number = '222222222222';
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
 
     	$member = new User();
     	$member->role_id = 3;
-    	$member->name = 'Member';
+    	$member->first_name = 'Member';
     	$member->email = 'member@ips.com';
     	$member->email_verified_at = now();
     	$member->phone_number = '333333333333';

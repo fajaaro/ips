@@ -14,13 +14,14 @@ class UserService
 	{
 		$user = new User();
 		$user->role_id = $request->role_id;
-		$user->name = $request->name;
+		$user->first_name = $request->first_name;
+		$user->last_name = $request->last_name;
 		$user->email = $request->email;
 		$user->phone_number = $request->phone_number;
 		$user->password = Hash::make($request->password);
 		$user->save();
 
-		$this->storeOrUpdateUserAddress($request, $user->id);	
+		$this->updateOrCreateUserAddress($request, $user->id);	
 
 		return $user;
 	}
@@ -28,13 +29,16 @@ class UserService
 	public function update($request, $userId)
 	{
 		$user = User::find($userId);
-		$user->role_id = $request->role_id;
-		$user->name = $request->name;
-		$user->phone_number = $request->phone_number;
-		$user->password = Hash::make($request->password);
+		if ($request->role_id) $user->role_id = $request->role_id;
+		$user->first_name = $request->first_name;
+		$user->last_name = $request->last_name;
+		if ($request->phone_number) $user->phone_number = $request->phone_number;
+		if ($request->password) $this->changePassword($request, $user);
 		$user->save();
 
-		$this->storeOrUpdateUserAddress($request, $user->id);
+		if ($request->address && $request->subdistrict_id) $this->updateOrCreateUserAddress($request, $user->id);
+
+		if ($request->hasFile('avatar')) $this->updateOrCreateAvatar($request, $user);
 
 		return $user;
 	}
@@ -52,40 +56,53 @@ class UserService
 		return false;
 	}
 
-	public function uploadAvatar($request)
+	public function changePassword($request, $user)
 	{
-        $user = User::find($request->user_id);
+		$user->password = Hash::make($request->password);
+		$user->save();
+	}
 
-		$avatar = $request->file('avatar');
+	public function validateChangePassword($request, $user)
+	{
+		if (Hash::check($request->current_password, $user->password)) {
+    		if ($request->password == $request->confirm_password) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	}
+    	else {
+    		return false;	
+    	}
+	}
+
+	private function updateOrCreateAvatar($request, $user)
+	{
+        $avatar = $request->file('avatar');
+		if ($user->image) {
+			Storage::delete($user->image->url);
+				
+			$user->image()->delete();				
+		}
+
         $imageExtension = $avatar->guessExtension();
-        $imageName = $user->id . '-' . $user->name . '.' . $imageExtension; 
-        $imagePath = Storage::putFileAs('user-avatars', $avatar, $imageName);
-        $imageUrl = Storage::url($imagePath);
+        $imageName = $user->id . '-' . $user->first_name . '.' . $imageExtension; 
+        $imageUrl = Storage::putFileAs('user-avatars', $avatar, $imageName);
 
         $user->image()->save(
         	Image::make(['url' => $imageUrl])
         );
 	}
 
-	private function storeOrUpdateUserAddress($request, $userId)
+	private function updateOrCreateUserAddress($request, $userId)
 	{
 		$user = User::find($userId);
 
-		if (!$user->userAddress) {
-			$userAddress = new UserAddress();
-			$userAddress->user_id = $user->id;
-			$userAddress->address = $request->address;
-			$userAddress->subdistrict_id = $request->subdistrict_id;
-			$userAddress->save();
+		$userAddress = UserAddress::updateOrCreate(
+			['user_id' => $user->id],
+			['address' => $request->address, 'subdistrict_id' => $request->subdistrict_id]
+		);
 
-			return $userAddress;			
-		} else {
-			$userAddress = UserAddress::find($user->userAddress->id);
-			$userAddress->address = $request->address;
-			$userAddress->subdistrict_id = $request->subdistrict_id;
-			$userAddress->save();
-
-			return $userAddress;			
-		}
+		return $userAddress;
 	}
 }
