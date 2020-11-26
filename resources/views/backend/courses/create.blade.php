@@ -155,6 +155,10 @@
 	<script src="https://cdn.tiny.cloud/1/z7ech7bo4l8gldmxxrgfq3yuzp0cwtoegi5qaayqxilo0fir/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 	<script>
 		$(document).ready(function() {
+			$('#category').selectize({
+				maxItems: 25,
+			})
+
 			tinymce.init({
 				selector: 'textarea',
 				plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker image',
@@ -163,6 +167,19 @@
 				tinycomments_mode: 'embedded',
 				tinycomments_author: 'Author name',
 				a11y_advanced_options: true
+			})
+
+			$('#image').on('change', function(event) {
+				var previewImage = document.getElementById('preview-image')
+			    previewImage.src = URL.createObjectURL(event.target.files[0])
+			    previewImage.onload = function() {
+				    URL.revokeObjectURL(previewImage.src) 
+			    }
+
+			    $('#preview-image').css({
+			    	'width': '500px',
+			    	'height': '500px',			    	
+			    })
 			})
 		})
 	</script>

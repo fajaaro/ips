@@ -50,8 +50,13 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="form-group text-left">
                         <label for="exampleFormControlFile1">Profile Image</label>
-                        <input type="file" class="form-control-file" name="avatar" id="exampleFormControlFile1">
+                        <input type="file" class="form-control-file" id="avatar" name="avatar" id="exampleFormControlFile1">
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 box-preview-avatar">
+                    <img id="preview-avatar" class="d-none rounded-circle" alt="">
                 </div>
             </div>
             <div class="row">
@@ -125,4 +130,22 @@
 @push('scripts')
     <script src="https://kit.fontawesome.com/7e8b6ee2c8.js" crossorigin="anonymous"></script>
     <script src="{{ asset('frontend/js/password.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#avatar').on('change', function(event) {
+                var previewImage = document.getElementById('preview-avatar')
+                previewImage.src = URL.createObjectURL(event.target.files[0])
+                previewImage.onload = function() {
+                    URL.revokeObjectURL(previewImage.src) 
+                }
+
+                $('#preview-avatar').removeClass('d-none').addClass('mb-3')
+
+                $('#preview-avatar').css({
+                    'width': '250px',
+                    'height': '250px',                  
+                })
+            })
+        })
+    </script>
 @endpush
