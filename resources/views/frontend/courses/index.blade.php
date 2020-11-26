@@ -1,14 +1,18 @@
-@include('frontend.partials.head', [
-    'useMainCss' => true,
-    'useIncourseCss' => false,
-    'usePhilosopherFontFamily' => false,
-    'useOwlCarouselCss' => false,
-    'useAOSCss' => false
-])
+@extends('frontend.layouts.app')
 
-<body>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('frontend/style/main.css') }}">
+@endpush
+
+@push('fonts')
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+@endpush
+
+@section('navbar')
     @include('frontend.partials.navbar')
+@endsection
 
+@section('content')
     <main>
         <div class="container courses">
             <div class="row">
@@ -57,7 +61,7 @@
                                     <a href="course-about.html"><img class="card-img-top" src="{{ Storage::url($course->image->url) }}" alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
-                                            <a href="course-about.html">{{ $course->name }}</a>
+                                            <a href="{{ route('frontend.courses.show', ['id' => $course->id]) }}">{{ $course->name }}</a>
                                         </h4>
                                         <h5>{{ formatRupiah($course->price) }}</h5>
                                         <p class="card-text">{!! $course->overview !!}</p>
@@ -77,11 +81,8 @@
         <!-- /.row -->
         </div>
     </main>
+@endsection
 
+@section('footer')
     @include('frontend.partials.footer', ['bgColor' => '#ffffff', 'useHr' => true, 'useLogo' => true, 'columnSize' => 'col-lg-3'])
-
-    <script src="{{ asset('frontend/library/jquery.min.js') }}"></script>
-    <script src="{{ asset('frontend/library/bootstrap.min.js') }}"></script>
-</body>
-
-</html>
+@endsection

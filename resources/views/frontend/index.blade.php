@@ -1,12 +1,18 @@
-@include('frontend.partials.head', [
-    'useMainCss' => true,
-    'useIncourseCss' => false,
-    'usePhilosopherFontFamily' => true,
-    'useOwlCarouselCss' => true,
-    'useAOSCss' => true
-])
+@extends('frontend.layouts.app')
 
-<body>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('frontend/style/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/library/owl-carousel/css/owl.carousel.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/library/owl-carousel/css/owl.theme.default.min.css') }}" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+@endpush
+
+@push('fonts')
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+@endpush
+
+@section('content')
     <img src="{{ asset('frontend/assets/logo.png') }}" style="width:180px;height:198px" class="position-absolute large-logo">
     <div class="container-fluid nav-header text-center">
         <img src="{{ asset('frontend/assets/nav-header-img.png') }}" alt="" class="w-100">
@@ -129,43 +135,45 @@
             </div>
         </div>
     </section>
-    @include('frontend.partials.footer', ['bgColor' => '#ffffff', 'useHr' => false, 'useLogo' => false, 'columnSize' => 'col-lg-4'])
+@endsection
 
-    <script src="{{ asset('frontend/library/jquery.min.js') }}"></script>
-    <script src="{{ asset('frontend/library/bootstrap.min.js') }}"></script>
+@section('footer')
+    @include('frontend.partials.footer', ['bgColor' => '#ffffff', 'useHr' => false, 'useLogo' => false, 'columnSize' => 'col-lg-4'])
+@endsection
+
+@push('scripts')
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="{{ asset('frontend/library/owl-carousel/js/owl.carousel.min.js') }}"></script>
     <script>
-    AOS.init();
-    $('.row .carousel .owl-carousel').owlCarousel({
-        loop: true,
-        autoplay: true,
-        dots: false,
-        responsive: {
-            0: {
-                items: 1
-            },
-            560: {
-                items: 3
-            }
-        }
-    })
+        $('footer').addClass('border')
 
-    $('.container-fluid .carousel .owl-carousel').owlCarousel({
-        loop: true,
-        autoplay: true,
-        dots: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            560: {
-                items: 2
+        AOS.init();
+        $('.row .carousel .owl-carousel').owlCarousel({
+            loop: true,
+            autoplay: true,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                560: {
+                    items: 3
+                }
             }
-        }
-    })
+        })
 
+        $('.container-fluid .carousel .owl-carousel').owlCarousel({
+            loop: true,
+            autoplay: true,
+            dots: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                560: {
+                    items: 2
+                }
+            }
+        })
     </script>
-</body>
-
-</html>
+@endpush

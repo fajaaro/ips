@@ -28,7 +28,11 @@
                     <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Hi, {{ Auth::user()->first_name }}</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="{{ route('frontend.profiles.index') }}" class="dropdown-item" style="color: #000000;">My Account</a>
-                        <a href="login.html" class="dropdown-item" style="color: #000000;">Logout</a>
+                        <a href="{{ route('logout') }}" class="dropdown-item" style="color: #000000;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             </ul>

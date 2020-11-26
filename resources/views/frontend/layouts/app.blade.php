@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'IPS - Virtual Class') }}</title>
+    <title>{{ $pageTitle ?? config('app.name', 'IPS - Virtual Class') }}</title>
 
     <!-- Page Icon -->
     <link rel="icon" href="{{ asset('frontend/assets/logo.png') }}" type="image/gif" sizes="16x16">

@@ -1,12 +1,14 @@
-@include('frontend.partials.head', [
-    'useMainCss' => true,
-    'useIncourseCss' => false,
-    'usePhilosopherFontFamily' => false,
-    'useOwlCarouselCss' => false,
-    'useAOSCss' => false
-])
+@extends('frontend.layouts.app')
 
-<body>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('frontend/style/main.css') }}">
+@endpush
+
+@push('fonts')
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+@endpush
+
+@section('content')
     <div class="container-fluid navigation">
         <nav class="row navbar navbar-expand-lg navbar-dark">
             <a href="{{ route('home') }}" class="navbar-brand ml-auto mr-auto">
@@ -51,8 +53,4 @@
             </div>
         </div>
     </footer>
-    <script src="{{ asset('frontend/library/jquery.min.js') }}"></script>
-    <script src="{{ asset('frontend/library/bootstrap.min.js') }}"></script>
-</body>
-
-</html>
+@endsection
