@@ -19,11 +19,21 @@
                 <div class="col-lg-3">
                     <h1 class="my-4">Our Courses</h1>
                     <div class="list-group">
-                        <a href="{{ route('frontend.courses.index') . Request::query('type') == 'bundle' ? '?type=bundle' : '' }}" class="list-group-item {{ request()->is('courses') && !Request::query('category') ? 'course-category-active' : '' }}">All Course</a>
+                        @php
+                            if (Request::query('type') == 'bundle') {
+                                $routeAllCourse = route('frontend.courses.index') . '?type=bundle';
+                            } else {
+                                $routeAllCourse = route('frontend.courses.index');
+                            }
+                        @endphp
 
-                        @foreach ($courseCategories as $category)
+                        <a href="{{ $routeAllCourse }}" class="list-group-item {{ request()->is('courses') && !Request::query('category') ? 'course-category-active' : '' }}">All Course</a>
+
+                        @foreach ($categories as $category)
                             <a href="{{ route('frontend.courses.index') . $getRequests . strToSlug($category->name) }}" class="list-group-item {{ slugToStr(Request::query('category')) == strtolower($category->name) ? 'course-category-active' : '' }}">{{ $category->name }}</a>
                         @endforeach
+
+                        <p>Total Course: {{ $courses->count() }}</p>
                     </div>
                 </div>
                 <!-- /.col-lg-3 -->
@@ -58,7 +68,7 @@
                         @foreach ($courses as $course)
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100">
-                                    <a href="course-about.html"><img class="card-img-top" src="{{ Storage::url($course->image->url) }}" alt=""></a>
+                                    <a href="course-about.html"><img class="card-img-top" src="{{ $course->image ? Storage::url($course->image->url) : '' }}" alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
                                             <a href="{{ route('frontend.courses.show', ['id' => $course->id]) }}">{{ $course->name }}</a>

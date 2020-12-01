@@ -17,3 +17,7 @@ table {
 .tooltip-inner {
     max-width: 500px;
 }
+
+.tooltip { 
+    pointer-events: none;
+}

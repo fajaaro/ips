@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CourseCourseCategory extends Model
+class BundleCourse extends Model
 {
     use HasFactory;
 
-    protected $table = 'course_course_category';
+    protected $table = 'bundle_course';
     public $timestamps = false;
 }

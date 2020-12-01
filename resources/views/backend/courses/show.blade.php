@@ -10,7 +10,11 @@
                 <div class="card-header">Course Details</div>
 
                 <div class="card-body">
-                    <img src="{{ Storage::url($course->image->url) }}" class="w-100 mb-3">
+                    @if ($course->image)
+                        <img src="{{ Storage::url($course->image->url) }}" class="w-100 mb-3">
+                    @else 
+                        <img src="{{ Storage::url('course-images/default.png') }}" class="w-100 mb-3">
+                    @endif
                     <div class="row">
                         <div class="col-md-5">
                             <p><span class="font-weight-bold">Name:</span> {{ $course->name }}</p>
@@ -30,10 +34,11 @@
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-6">
-                            <p class="font-weight-bold">Categories:</p>
+                            <p><span class="font-weight-bold">Category:</span> {{ $course->category->name }}</p>
+                            <p class="font-weight-bold">Bundles:</p>
                             <ul>
-                                @foreach ($course->courseCategories as $category)
-                                    <li>{{ $category->name }}</li>
+                                @foreach ($course->bundles as $bundle)
+                                    <li>{{ $bundle->name }}</li>
                                 @endforeach
                             </ul>
 

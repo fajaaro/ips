@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\CourseCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CourseCategoryController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,9 @@ class CourseCategoryController extends Controller
      */
     public function index()
     {
-        $courseCategories = CourseCategory::with('courses')->isBundle(false)->get();
-        $bundleCourseCategories = CourseCategory::with('courses')->isBundle(true)->get();
+        $categories = Category::with('courses')->get();
 
-        return view('backend.course-categories.index', compact('courseCategories', 'bundleCourseCategories'));
+        return view('backend.categories.index', compact('categories'));
     }
 
     /**
@@ -28,23 +27,17 @@ class CourseCategoryController extends Controller
      */
     public function create()
     {
-        return view('backend.course-categories.create');
+        return view('backend.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $categoriesName = $request->names;
 
         foreach ($categoriesName as $name) {
-            $courseCategory = new CourseCategory();
-            $courseCategory->name = $name;
-            $courseCategory->save();
+            $category = new Category();
+            $category->name = $name;
+            $category->save();
         }
 
         return redirect()->route('backend.courseCategories.index')->with('success', 'Berhasil membuat ' . count($categoriesName) . ' kategori!');
@@ -92,13 +85,13 @@ class CourseCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $courseCategory = CourseCategory::find($id);
-        $courseCategoryName = $courseCategory->name;
+        $category = Category::find($id);
+        $categoryName = $category->name;
 
-        if ($courseCategory) {
-            $courseCategory->delete();
+        if ($category) {
+            $category->delete();
 
-            return redirect()->route('backend.courseCategories.index')->with('success', 'Berhasil menghapus ' . $courseCategoryName . ' kategori!');
+            return redirect()->route('backend.courseCategories.index')->with('success', 'Berhasil menghapus ' . $categoryName . ' kategori!');
         } 
 
         return redirect()->route('backend.courseCategories.index')->with('failed', 'Gagal menghapus kategori!');

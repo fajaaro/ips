@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CourseCategory extends Model
+class Category extends Model
 {
     use HasFactory;
 
@@ -14,10 +14,6 @@ class CourseCategory extends Model
 
     public function courses()
     {
-    	return $this->belongsToMany('App\Models\Course');
+    	return $this->hasMany('App\Models\Course');
     }
-
-    public function scopeIsBundle(Builder $query, $flag) {
-	 	return $query->where('is_bundle', $flag);
-	}
 }

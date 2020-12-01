@@ -12,7 +12,8 @@ class CourseController extends Controller
     public function getCourse($id)
     {
         $course = Course::with([
-            'courseCategories', 
+            'category', 
+            'bundles',
             'courseVideo', 
             'image'
         ])->where('id', $id)->first();

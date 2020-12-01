@@ -10,6 +10,7 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('name');
             $table->decimal('price', 12, 2);
             $table->text('overview')->nullable();

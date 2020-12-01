@@ -11,7 +11,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('bundle_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('invoice_number', 20);
             $table->decimal('total_price', 12, 2);
             $table->enum('payment_status', ['paid', 'unpaid'])->default('unpaid');

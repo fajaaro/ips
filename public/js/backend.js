@@ -11,10 +11,6 @@ $(document).ready(function() {
 
     }, 1000)        
 
-	// $('body').tooltip({ 
-	// 	selector: '[data-toggle=tooltip]' 
-	// })
-
     $('[data-toggle="tooltip"]').tooltip({ 
         container: '.table' 
     })

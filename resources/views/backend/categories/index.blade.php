@@ -33,7 +33,7 @@
                                 $i = 1;
                             @endphp
 
-                        	@foreach ($courseCategories as $category)
+                        	@foreach ($categories as $category)
                                 <tr>
                                     <th scope="row" width="10">{{ $i++ }}</th>
                                     <td>{{ $category->name }}</td>
@@ -53,7 +53,7 @@
                                             </span>                                            
                                         </a>
 
-                                        <span class="badge badge-danger badge-action remove-category" data-toggle="tooltip" data-placement="top" title="Remove"> 
+                                        <span class="badge badge-danger badge-action" id="remove-category" data-toggle="tooltip" data-placement="top" title="Remove"> 
                                             <i class="far fa-trash-alt"></i>
                                         </span>
 
@@ -64,38 +64,6 @@
                                     </td>
                                 </tr>
                         	@endforeach
-
-                            @foreach ($bundleCourseCategories as $category)
-                                <tr>
-                                    <th scope="row" width="10">{{ $i++ }}</th>
-                                    <td>{{ $category->name }} (Bundle)</td>
-                                    <td>
-                                        <span data-html="true" data-toggle="tooltip" data-placement="right" title="@foreach($category->courses as $course) {{ '<span class="float-left">' . $course->name . '</span><br>' }} @endforeach">{{ $category->courses()->count() }}
-                                        </span>
-                                    </td>
-                                    <td>{{ formatDate($category->created_at) }}</td>
-                                    <td>
-                                        <span class="badge badge-info badge-action" data-toggle="tooltip" data-placement="top" title="Show Details">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
-
-                                        <a href="{{ route('backend.courseCategories.edit', ['id' => $category->id]) }}">
-                                            <span class="badge badge-warning badge-action" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </span>                                            
-                                        </a>
-
-                                        <span class="badge badge-danger badge-action remove-category" data-toggle="tooltip" data-placement="top" title="Remove"> 
-                                            <i class="far fa-trash-alt"></i>
-                                        </span>
-
-                                        <form action="{{ route('backend.courseCategories.destroy', ['id' => $category->id]) }}" class="d-none" method="post">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
                         </tbody>
                     </table>
 
@@ -113,9 +81,8 @@
     <script>
         $(document).ready(function() {
             $('#course-categories-table').DataTable()
-            $('#bundle-course-categories-table').DataTable()
 
-            $('.remove-category').on('click', function() {
+            $('#remove-category').on('click', function() {
                 $(this).next().submit()
             })
         })

@@ -19,6 +19,11 @@ class Order extends Model
     	return $this->belongsTo('App\Models\Course');
     }
 
+    public function bundle()
+    {
+        return $this->belongsTo('App\Models\Bundle');
+    }
+
     public function courseUser()
     {
     	return $this->hasOne('App\Models\CourseUser');

@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvinceSeeder::class);
         $this->call(SubdistrictSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(CourseCategorySeeder::class);
+        $this->call(BundleSeeder::class);
+        $this->call(CategorySeeder::class);
         $this->call(CourseSeeder::class);
     }
 }

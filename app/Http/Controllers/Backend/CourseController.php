@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bundle;
+use App\Models\Category;
 use App\Models\Course;
-use App\Models\CourseCategory;
 use App\Services\CourseService;
 use Illuminate\Http\Request;
 
@@ -12,16 +13,16 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::with('users')->get();
+        $courses = Course::with(['users', 'category'])->get();
 
         return view('backend.courses.index', compact('courses'));
     }
 
     public function create()
     {
-        $courseCategories = CourseCategory::all();
+        $categories = Category::all();
 
-        return view('backend.courses.create', compact('courseCategories'));
+        return view('backend.courses.create', compact('categories'));
     }
 
     public function store(Request $request, CourseService $courseService)
@@ -34,7 +35,8 @@ class CourseController extends Controller
     public function show($id)
     {
         $course = Course::with([
-            'courseCategories', 
+            'category', 
+            'bundles', 
             'courseVideo', 
             'image',
             'users'
@@ -46,9 +48,10 @@ class CourseController extends Controller
     public function edit($id)
     {
         $course = Course::find($id);
-        $courseCategories = CourseCategory::all();
+        $categories = Category::all();
+        $bundles = Bundle::all();
 
-        return view('backend.courses.edit', compact('course', 'courseCategories'));
+        return view('backend.courses.edit', compact('course', 'categories', 'bundles'));
     }
 
     public function update(Request $request, $id, CourseService $courseService)

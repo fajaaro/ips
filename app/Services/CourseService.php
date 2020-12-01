@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\BundleCourse;
+use App\Models\Category;
 use App\Models\Course;
-use App\Models\CourseCourseCategory;
 use App\Models\CourseVideo;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +14,7 @@ class CourseService
 	public function create($request)
 	{
 		$course = new Course();
+		$course->category_id = $request->category_id;
 		$course->name = $request->name;
 		$course->price = $request->price;
 		$course->overview = $request->overview;
@@ -22,13 +24,8 @@ class CourseService
 		$course->notes = $request->notes;
 		$course->save();
 
-		$courseCategories = $request->course_categories_id;
-		foreach ($courseCategories as $category) {
-			$courseCategoryCourse = new CourseCourseCategory();
-			$courseCategoryCourse->course_category_id = $category;
-			$courseCategoryCourse->course_id = $course->id;
-			$courseCategoryCourse->save();			
-		}
+		$courseBundles = $request->bundles_id;
+		$course->bundles()->attach($courseBundles);
 
 		$courseVideo = new CourseVideo();
 		$courseVideo->course_id = $course->id;
@@ -40,6 +37,7 @@ class CourseService
         $imageName = $course->id . '_' . strtolower(str_replace(' ', '_', $course->name)) . '.' . $imageExtension; 
         $imageUrl = Storage::putFileAs('course-images', $courseImage, $imageName);
 
+        $imageUrl = str_replace('+', '%2B', $imageUrl);
         $course->image()->save(
         	Image::make(['url' => $imageUrl])
         );
@@ -50,6 +48,7 @@ class CourseService
 	public function update($request, $courseID)
 	{
 		$course = Course::find($courseID);
+		$course->category_id = $request->category_id;
 		$course->name = $request->name;
 		$course->price = $request->price;
 		$course->overview = $request->overview;
@@ -59,15 +58,10 @@ class CourseService
 		$course->notes = $request->notes;
 		$course->save();
 
-		CourseCourseCategory::where('course_id', $course->id)->delete();
+		BundleCourse::where('course_id', $course->id)->delete();
 
-		$courseCategories = $request->course_categories_id;
-		foreach ($courseCategories as $category) {
-			$courseCategoryCourse = new CourseCourseCategory();
-			$courseCategoryCourse->course_category_id = $category;
-			$courseCategoryCourse->course_id = $course->id;
-			$courseCategoryCourse->save();			
-		}
+		$courseBundles = $request->bundles_id;
+		$course->bundles()->attach($courseBundles);
 
 		$courseVideo = $course->courseVideo;
 		$courseVideo->url = $request->course_video_url;
@@ -85,6 +79,7 @@ class CourseService
 	        $imageName = $course->id . '_' . strtolower(str_replace(' ', '_', $course->name)) . '.' . $imageExtension; 
 	        $imageUrl = Storage::putFileAs('course-images', $courseImage, $imageName);
 
+	        $imageUrl = str_replace('+', '%2B', $imageUrl);
 	        $course->image()->save(
 	        	Image::make(['url' => $imageUrl])
 	        );			

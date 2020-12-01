@@ -9,9 +9,14 @@ class Course extends Model
 {
     use HasFactory;
 
-	public function courseCategories()
+    public function bundles()
+    {
+        return $this->belongsToMany('App\Models\Bundle');
+    }
+
+	public function category()
 	{
-		return $this->belongsToMany('App\Models\CourseCategory');
+		return $this->belongsTo('App\Models\Category');
 	}
 
 	public function courseVideo()
@@ -27,5 +32,10 @@ class Course extends Model
     public function users()
     {
     	return $this->belongsToMany('App\Models\User');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
     }
 }

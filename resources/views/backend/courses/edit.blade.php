@@ -4,10 +4,12 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous">
 	<link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css"/>
 	<style>
-		#preview-image {
-			width: 500px;
-			height: 500px;
-		}
+		@if ($course->image)
+			#preview-image {
+				width: 500px;
+				height: 500px;
+			}
+		@endif
 	</style>
 @endpush
 
@@ -30,15 +32,25 @@
 				        </div>
 
                 		<div class="row mt-2">
-				            <div class="col">
-				                <label for="category"><span class="star">*</span> Category</label>
-				                <select id="category" class="form-control" name="course_categories_id[]" required>
+				            <div class="col-md-6">
+				                <label for="category">Category</label>
+				                <select id="category" class="form-control" name="category_id">
 				                    <option value="">Choose Course Category</option>
 				                    
-				                    @foreach ($courseCategories as $category)
+				                    @foreach ($categories as $category)
 				                    	<option value="{{ $category->id }}">{{ $category->name }}</option>
 				                    @endforeach				                    
 				                </select>
+				            </div>
+				            <div class="col-md-6">
+				            	<label for="bundles"><span class="star">*</span> Bundles</label>
+				            	<select id="bundles" class="form-control" name="bundles_id[]">
+				            		<option value="">Choose Bundles Category</option>
+
+				            		@foreach ($bundles as $bundle)
+				            			<option value="{{ $bundle->id }}">{{ $bundle->name }}</option>
+				            		@endforeach
+				            	</select>
 				            </div>
 				        </div>    
 
@@ -103,7 +115,7 @@
 				                <label for="image">Image</label>
 				                <input type="file" id="image" class="form-control-file" name="image">
 
-				                <img src="{{ Storage::url($course->image->url) }}" id="preview-image" class="mt-2">
+				                <img src="{{ $course->image ? Storage::url($course->image->url) : '' }}" id="preview-image" class="mt-2">
 				        	</div>
 				        </div>
 
@@ -160,7 +172,9 @@
 	<script src="https://cdn.tiny.cloud/1/z7ech7bo4l8gldmxxrgfq3yuzp0cwtoegi5qaayqxilo0fir/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 	<script>
 		$(document).ready(function() {
-			let category = $('#category').selectize({
+			let category = $('#category').selectize()
+
+			let bundles = $('#bundles').selectize({
 				maxItems: 25,
 			})
 
@@ -168,14 +182,17 @@
 				.get('/api/courses/{{ $course->id }}')
 				.then(response => {
 					const course = response.data
-					const courseCategories = course.course_categories
+					const courseCategory = course.category
+					const courseBundles = course.bundles
 
-					let courseCategoriesID = []
-					for (let i = 0; i < courseCategories.length; i++) {
-						courseCategoriesID.push(courseCategories[i].id)
+					const totalBundles = courseBundles.length
+					let courseBundlesId = [];
+					for (let i = 0; i < totalBundles; i++) {
+						courseBundlesId.push(courseBundles[i].id)
 					}
 
-					category[0].selectize.setValue(courseCategoriesID)
+					category[0].selectize.setValue(courseCategory.id)
+					bundles[0].selectize.setValue(courseBundlesId)
 				})
 
 			tinymce.init({
@@ -201,7 +218,5 @@
 			    })
 			})			
 		})
-
-
 	</script>
 @endpush

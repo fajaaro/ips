@@ -14,4 +14,5 @@ Route::group(['prefix' => '/'], function () {
 	};
 
 	Route::get('/', [HomeController::class, 'index'])->name('home');
+	Route::get('/debug', [HomeController::class, 'debug'])->name('debug');
 });
