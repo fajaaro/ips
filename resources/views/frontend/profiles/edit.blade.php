@@ -2,6 +2,13 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('frontend/style/main.css') }}">
+    <style type="text/css">
+        .togglePassword {
+            float: right;
+            margin-top: -25px;
+            margin-right: 12px;
+        }
+    </style>
 @endpush
 
 @section('navbar')
@@ -69,7 +76,9 @@
             </div>
             <div class="row">
                 <div class="col text-right">
-                    <button type="submit" class="btn btn-back ">Back</button>
+                    <a href="{{ route('frontend.profiles.index') }}">
+                        <button type="button" class="btn btn-back ">Back</button>
+                    </a>
                     <button type="submit" class="btn btn-save ">Save</button>
                 </div>
             </div>

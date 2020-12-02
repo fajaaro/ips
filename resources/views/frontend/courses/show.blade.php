@@ -23,8 +23,10 @@
                         <a href="{{ route('frontend.courses.watch', ['id' => $course->id]) }}" class="course-btn m-0">See Course</a>                
                         <p class="course-price m-0">Purchased</p>
                     @else
-                        <a href="course-in.html" class="course-btn m-0">Buy This Course</a>                
-                        <p class="course-price m-0">{{ formatRupiah($course->price) }}</p>
+                        @if ($course->price > 0)
+                            <a href="course-in.html" class="course-btn m-0">Buy This Course</a> 
+                            <p class="course-price m-0">{{ formatRupiah($course->price) }}</p>
+                        @endif               
                     @endif
                 </div>
             </div>

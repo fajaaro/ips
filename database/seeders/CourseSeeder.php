@@ -133,7 +133,7 @@ class CourseSeeder extends Seeder
         $coursesName = [
             'Dark Chocolate Tart',
             'Sour Cherry Flan',
-            'Egg Tart Crispy / Hong Kong Egg Tart',
+            'Egg Tart Crispy or Hong Kong Egg Tart',
             'Quiche',
             'Shortcrust Pastry',
         ];
@@ -228,7 +228,7 @@ class CourseSeeder extends Seeder
             'Pistachio Pyramid Chocolate',
             'White Chocolate Cheese Cake',
             'Choco Fondant with Pistachio Siciliano',
-            'Yu (Bavarian/Fruit Mousse)',
+            'Yu (Bavarian or Fruit Mousse)',
             'Lapis Legit',
             'Cronut',
             'Printainer',
