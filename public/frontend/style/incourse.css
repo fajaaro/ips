@@ -1,6 +1,5 @@
 .navigation {
-  /*background-color: #0f0e20;*/
-  background-color: #faba1c;
+  background-color: #0f0e20;
 }
 
 .navigation nav {
@@ -14,10 +13,6 @@
   font-weight: 400;
 }
 
-.navigation nav .collapse ul li .dropdown-item {
-  color: black !important;
-}
-
 body {
   background: #e5e5e5;
 }
@@ -26,28 +21,16 @@ body {
   margin-top: 60px;
 }
 
-.course-bonuses {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.course-bonuses img {
-  background-color: black;
-  border-radius: 100%;
-  border: solid;
-}
-
 .course .course-header .col-lg-8 {
-  /*background-color: #ffffff;
+  background-color: #ffffff;
   width: 780px;
   height: 340px;
-  border-radius: 10px;*/
-/*  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../assets/Basic/Almond Sour Cream Pound Cake.jpg");
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/Basic/Almond Sour Cream Pound Cake.jpg");*/
-  /*background-repeat: no-repeat;
+  border-radius: 10px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../assets/Basic/Almond Sour Cream Pound Cake.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/Basic/Almond Sour Cream Pound Cake.jpg");
+  background-repeat: no-repeat;
   background-size: auto;
-  padding: 30px;*/
+  padding: 30px;
 }
 
 .course .course-header .col-lg-8 h1 {
@@ -92,7 +75,7 @@ body {
   -webkit-box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  /*height: 260px;*/
+  height: 260px;
   background-color: #ffffff;
 }
 
@@ -129,7 +112,7 @@ body {
   font-size: 16px;
   color: #000000;
   font-weight: 400;
-  /*margin: 20px;*/
+  margin: 20px;
 }
 
 .footer-section {

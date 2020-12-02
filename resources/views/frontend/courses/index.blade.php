@@ -68,7 +68,7 @@
                         @foreach ($courses as $course)
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100">
-                                    <a href="course-about.html"><img class="card-img-top" src="{{ $course->image ? Storage::url($course->image->url) : '' }}" alt=""></a>
+                                    <a href="course-about.html"><img class="card-img-top w-100 h-100" src="{{ $course->image ? Storage::url($course->image->url) : '' }}" alt=""></a>
                                     <div class="card-body">
                                         <h4 class="card-title">
                                             <a href="{{ route('frontend.courses.show', ['id' => $course->id]) }}">{{ $course->name }}</a>
