@@ -220,6 +220,11 @@ header .btn-get-started:hover {
 .profile-course .row .col-lg-4 .card a img {
   -webkit-transition: opacity 0.5s ease-in-out;
   transition: opacity 0.5s ease-in-out;
+  
+  /*tambahan css dari fajar untuk menyamakan semua ukuran gambar*/
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
 
 .profile-course .row .col-lg-4 .card a:hover img {

@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
             $table->string('invoice_number', 20);
             $table->decimal('total_price', 12, 2);
             $table->enum('payment_status', ['paid', 'unpaid'])->default('unpaid');
-            $table->boolean('is_bundle');
             $table->timestamps();
             $table->timestamp('paid_at', 0)->nullable();
         });

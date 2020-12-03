@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Models\CourseCategory;
+use App\Models\Bundle;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -23,8 +23,8 @@ class CourseController extends Controller
 
     public function getBundleCourses($id)
     {
-    	$courses = CourseCategory::find($id)->courses;
+    	$bundle = Bundle::with('courses')->where('id', $id)->first();
 
-    	return response()->json($courses);
+    	return response()->json($bundle);
     }
 }

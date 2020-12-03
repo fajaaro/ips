@@ -24,8 +24,7 @@ class CourseService
 		$course->notes = $request->notes;
 		$course->save();
 
-		$courseBundles = $request->bundles_id;
-		$course->bundles()->attach($courseBundles);
+		$course->bundles()->attach($request->bundles_id);
 
 		$courseVideo = new CourseVideo();
 		$courseVideo->course_id = $course->id;
@@ -33,14 +32,9 @@ class CourseService
 		$courseVideo->save();
 
 		$courseImage = $request->file('image');
-        $imageExtension = $courseImage->guessExtension();
-        $imageName = $course->id . '_' . strtolower(str_replace(' ', '_', $course->name)) . '.' . $imageExtension; 
-        $imageUrl = Storage::putFileAs('course-images', $courseImage, $imageName);
-
-        $imageUrl = str_replace('+', '%2B', $imageUrl);
-        $course->image()->save(
-        	Image::make(['url' => $imageUrl])
-        );
+		if ($courseImage) {
+	        $this->storeCourseImage($courseImage, $course);
+		}
 
         return $course;
 	}
@@ -58,10 +52,8 @@ class CourseService
 		$course->notes = $request->notes;
 		$course->save();
 
-		BundleCourse::where('course_id', $course->id)->delete();
-
-		$courseBundles = $request->bundles_id;
-		$course->bundles()->attach($courseBundles);
+		$course->bundles()->detach();
+		$course->bundles()->attach($request->bundles_id);
 
 		$courseVideo = $course->courseVideo;
 		$courseVideo->url = $request->course_video_url;
@@ -75,17 +67,24 @@ class CourseService
 				$course->image()->delete();				
 			}
 
-	        $imageExtension = $courseImage->guessExtension();
-	        $imageName = $course->id . '_' . strtolower(str_replace(' ', '_', $course->name)) . '.' . $imageExtension; 
-	        $imageUrl = Storage::putFileAs('course-images', $courseImage, $imageName);
-
-	        $imageUrl = str_replace('+', '%2B', $imageUrl);
-	        $course->image()->save(
-	        	Image::make(['url' => $imageUrl])
-	        );			
+	        $this->storeCourseImage($courseImage, $course);
 		}
 
         return $course;		
+	}
+
+	private function storeCourseImage($courseImage, $course)
+	{
+		$imageExtension = $courseImage->guessExtension();
+        $imageName = $course->id . '_' . strtolower(str_replace(' ', '_', $course->name)) . '.' . $imageExtension; 
+        $imageUrl = Storage::putFileAs('course-images', $courseImage, $imageName);
+
+        $imageUrl = str_replace('+', '%2B', $imageUrl);
+        $course->image()->save(
+        	Image::make(['url' => $imageUrl])
+        );
+
+        return $course->image;
 	}
 
 	public function destroy($id)

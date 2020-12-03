@@ -16,22 +16,23 @@
 @endpush
 
 @section('content')
+	@include('flash')
 	
 	<div class="orders-container">
 		<div class="row justify-content-center">
 	        <div class="col-12">
 	            <div class="card">
-	                <div class="card-header close-card" id="header-normal-order">
+	                <div class="card-header close-card" id="header-single-order">
 	                	<span>Add New Order</span>
-	                	<span class="float-right icon-action"><i class="fas fa-times" id="icon-normal-order"></i></span>
+	                	<span class="float-right icon-action"><i class="fas fa-times" id="icon-single-order"></i></span>
 	                </div>
 
-	                <div class="card-body normal-order">
-	                	<form action="{{ route('backend.orders.store') }}" method="post" enctype="multipart/form-data">
+	                <div class="card-body single-order">
+	                	<form action="{{ route('backend.orders.store') }}" method="post">
 	                		@csrf
 
 	                		<input type="hidden" name="from" value="admin">
-	                		<input type="hidden" name="order_type" value="normal">
+	                		<input type="hidden" name="order_type" value="single">
 
 	                		<div class="row mt-2">
 					            <div class="col-md-6">
@@ -92,7 +93,7 @@
 	                </div>
 
 	                <div class="card-body bundle-order">
-	                	<form action="{{ route('backend.orders.store') }}" method="post" enctype="multipart/form-data">
+	                	<form action="{{ route('backend.orders.store') }}" method="post">
 	                		@csrf
 
 	                		<input type="hidden" name="from" value="admin">
@@ -110,12 +111,12 @@
 					                </select>
 					            </div>
 					            <div class="col-md-6">
-					                <label for="course"><span class="star">*</span> Course Category</label>
-					                <select id="bundle-category" class="form-control" name="course_category_id" required>
+					                <label for="bundle-category"><span class="star">*</span> Bundle Category</label>
+					                <select id="bundle-category" class="form-control" name="bundle_id" required>
 					                    <option value="">Choose Bundle Category</option>
 					                    
-					                    @foreach ($bundleCourseCategories as $category)
-					                    	<option value="{{ $category->id }}">{{ $category->name }}</option>
+					                    @foreach ($bundles as $bundle)
+					                    	<option value="{{ $bundle->id }}">{{ $bundle->name }}</option>
 					                    @endforeach				                    
 					                </select>
 					            </div>
@@ -135,27 +136,20 @@
 					        <hr>
 
 					        <div class="row">
-					        	<div class="col-8">
+					        	<div class="col-12">
 					        		<p class="font-weight-bold">Course Name</p>
 					        	</div>
-					        	<div class="col-4">
-					        		<p class="font-weight-bold">Price</p>
-					        	</div>
 
-					        	<div class="col-8 course-names">
-					        	</div>
-					        	<div class="col-4 course-prices">
+					        	<div class="col-12 course-names">
 					        	</div>
 					        </div>
 
 					        <hr class="mt-0">
 
 					        <div class="row">
-					        	<div class="col-8">
-					        		<p class="font-weight-bold">Total Price</p>
-					        	</div>
-					        	<div class="col-4">
-					        		<p class="font-weight-bold bundle-total-price"></p>
+					        	<div class="col">
+					        		<p class="font-weight-bold">Total Course: <span class="font-weight-bold bundle-total-course"></span></p>
+					        		<p class="font-weight-bold">Total Price: <span class="font-weight-bold bundle-total-price"></span></p>
 					        	</div>
 					        </div>
 
@@ -196,8 +190,8 @@
 			$('.orders-container').on('click', '.close-card', function() {
 				$(this).next().slideUp()
 
-				if ($(this).attr('id') == 'header-normal-order') {
-					$('#icon-normal-order').removeClass().addClass(arrowDownIconClass)
+				if ($(this).attr('id') == 'header-single-order') {
+					$('#icon-single-order').removeClass().addClass(arrowDownIconClass)
 				} else {
 					$('#icon-bundle-order').removeClass().addClass(arrowDownIconClass)					
 				}
@@ -208,8 +202,8 @@
 			$('.orders-container').on('click', '.open-card', function() {
 				$(this).next().slideDown()
 
-				if ($(this).attr('id') == 'header-normal-order') {
-					$('#icon-normal-order').removeClass().addClass(closeIconClass)					
+				if ($(this).attr('id') == 'header-single-order') {
+					$('#icon-single-order').removeClass().addClass(closeIconClass)					
 
 					$('.bundle-order').slideUp()
 					$('#icon-bundle-order').removeClass().addClass(arrowDownIconClass)
@@ -218,10 +212,10 @@
 				} else {
 					$('#icon-bundle-order').removeClass().addClass(closeIconClass)					
 
-					$('.normal-order').slideUp()
-					$('#icon-normal-order').removeClass().addClass(arrowDownIconClass)
+					$('.single-order').slideUp()
+					$('#icon-single-order').removeClass().addClass(arrowDownIconClass)
 
-					$('#header-normal-order').removeClass('close-card').addClass('open-card')
+					$('#header-single-order').removeClass('close-card').addClass('open-card')
 				}
 
 				$(this).removeClass('open-card').addClass('close-card')
@@ -229,30 +223,23 @@
 
 			$('#bundle-category').on('change', function() {
 				$('.course-names').empty()
-				$('.course-prices').empty()
 
-				let bundleCategoryId = $(this).val()
+				let bundleId = $(this).val()
 
 				axios
-					.get(`/api/courses/bundle/${bundleCategoryId}`)
+					.get(`/api/courses/bundle/${bundleId}`)
 					.then(response => {
-						let courses = response.data
+						let courses = response.data.courses
 
-						let totalCourses = courses.length
-						let totalPrice = 0.00
-						for (let i = 0; i < totalCourses; i++) {
-							let coursePrice = parseInt(courses[i].price)
-
+						let totalCourse = courses.length
+						for (let i = 0; i < totalCourse; i++) {
 							let courseNameElement = `<p>${courses[i].name}</p>`
-							let coursePriceElement = `<p>${formatRupiah(coursePrice)}</p>`
 
 							$('.course-names').append(courseNameElement)
-							$('.course-prices').append(coursePriceElement)
-
-							totalPrice += coursePrice
 						}
 
-						$('.bundle-total-price').text(formatRupiah(totalPrice))
+						$('.bundle-total-price').text(formatRupiah(response.data.price))
+						$('.bundle-total-course').text(totalCourse)
 					})
 			})
 

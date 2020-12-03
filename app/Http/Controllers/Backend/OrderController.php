@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Models\CourseCategory;
+use App\Models\Bundle;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\OrderService;
@@ -24,16 +24,22 @@ class OrderController extends Controller
         $courses = Course::all();
         $users = User::all();
 
-        $bundleCourseCategories = CourseCategory::where('is_bundle', true)->get();
+        $bundles = Bundle::all();
 
-        return view('backend.orders.create', compact('courses', 'users', 'bundleCourseCategories'));
+        return view('backend.orders.create', compact('courses', 'users', 'bundles'));
     }
 
     public function store(Request $request, OrderService $orderService)
     {
         $order = $orderService->create($request);
 
-        return redirect()->route('backend.orders.index')->with('success', 'Berhasil membuat order baru untuk ' . $order->user->first_name . ' ' . $order->user->last_name . '!');
+        if ($order) {
+            return redirect()->route('backend.orders.index')->with('success', 'Berhasil membuat order baru untuk ' . $order->user->first_name . ' ' . $order->user->last_name . '!');
+        } else {
+            $buyer = User::find($request->user_id);
+
+            return back()->with('failed', 'Gagal membuat order baru.');
+        }
     }
 
     public function show($id)

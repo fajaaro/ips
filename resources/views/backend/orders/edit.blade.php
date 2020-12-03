@@ -2,165 +2,141 @@
 
 @push('styles')
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous">
-	<link href="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css"/>
+
 	<style>
-		#preview-image {
-			width: 500px;
-			height: 500px;
+		.close-card,
+		.open-card {
+			cursor: pointer;
+		}
+
+		.bundle-order {
+			display: none;
 		}
 	</style>
 @endpush
 
 @section('content')
-	<div class="row justify-content-center">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">Edit Course</div>
+	@include('flash')
+	
+	<div class="orders-container">
+		<div class="row justify-content-center">
+	        <div class="col-12">
+	            <div class="card">
+	                <div class="card-header close-card" id="header-single-order">
+	                	<span>Edit Order</span>
+	                	<span class="float-right icon-action"><i class="fas fa-times" id="icon-single-order"></i></span>
+	                </div>
 
-                <div class="card-body">
-                	<form action="{{ route('backend.courses.update', ['id' => $course->id]) }}" method="post" enctype="multipart/form-data">
-                		@csrf
-                		@method('put')
+	                <div class="card-body single-order">
+	                	<form action="{{ route('backend.orders.update', ['id' => $order->id]) }}" method="post">
+	                		@method('put')
+	                		@csrf
 
-				        <div class="row">
-				            <div class="col">
-				                <label for="name"><span class="star">*</span> Course Name</label>
-				                <input type="text" id="name" class="form-control" name="name" value="{{ $course->name }}" required>
-				            </div>
-				        </div>
+	                		<input type="hidden" name="from" value="admin">
+	                		<input type="hidden" name="order_type" value="{{ $order->course_id ? 'single' : 'bundle' }}">
 
-                		<div class="row mt-2">
-				            <div class="col">
-				                <label for="category"><span class="star">*</span> Category</label>
-				                <select id="category" class="form-control" name="course_categories_id[]" required>
-				                    <option value="">Choose Course Category</option>
-				                    
-				                    @foreach ($courseCategories as $category)
-				                    	<option value="{{ $category->id }}">{{ $category->name }}</option>
-				                    @endforeach				                    
-				                </select>
-				            </div>
-				        </div>    
+	                		<div class="row mt-2">
+					            <div class="col-md-6">
+					                <label for="user"><span class="star">*</span> User</label>
+					                <input type="text" id="user" class="form-control" name="user_id" value="{{ $order->user->first_name }} {{ $order->user->last_name }}" required disabled>
+					            </div>
+					            <div class="col-md-6">
+					                <label for="course"><span class="star">*</span> {{ $order->course_id ? 'Course' : 'Bundle Category' }}</label>
+					                <input type="text" id="course" class="form-control" name="{{ $order->course_id ? 'course_id' : 'bundle_id' }}" value="{{ $order->course->name ?? $order->bundle->name }}" required disabled>
+					            </div>
+					        </div>
 
-				        <label for="overview" class="mt-2">Overview</label>
-				        <div id="overview">
-				        	{!! $course->overview !!}
-				        </div>
-				        <input type="hidden" name="overview" class="input-overview">
+					        <div class="row mt-2">
+					            <div class="col">
+					                <label for="payment-status"><span class="star">*</span> Payment Status</label>
+					                <select id="payment-status" class="form-control" name="payment_status" required>
+				                    	<option value="paid" {{ $order->payment_status == 'paid' ? 'selected' : '' }}>Paid</option>
+				                    	<option value="unpaid" {{ $order->payment_status == 'unpaid' ? 'selected' : '' }}>Unpaid</option>
+					                </select>
+					            </div>
+					        </div>    
 
-				        <label for="recipes" class="mt-2">Recipes</label>
-				        <div id="recipes">
-				        	{!! $course->recipes !!}
-				        </div>
-				        <input type="hidden" name="recipes" class="input-recipes">
+					        <hr>
 
-				        <label for="steps" class="mt-2">Steps</label>
-				        <div id="steps">
-				        	{!! $course->steps !!}
-				        </div>
-				        <input type="hidden" name="steps" class="input-steps">
-
-				        <label for="notes" class="mt-2">Notes</label>
-				        <div id="notes">
-				        	{!! $course->notes !!}
-				        </div>
-				        <input type="hidden" name="notes" class="input-notes">
-
-				        <div class="row mt-2">
-				            <div class="col-md-6">
-				                <label for="course_video_url"><span class="star">*</span> Course Video URL</label>
-				                <input type="text" id="course_video_url" class="form-control" name="course_video_url" value="{{ $course->courseVideo->url }}" required>
-				            </div>
-				            <div class="col-md-6">
-				                <label for="price"><span class="star">*</span> Price</label>
-				                <input type="number" id="price" class="form-control" name="price" value="{{ (int)$course->price }}" required>
-				            </div>
-				        </div>
-
-				        <div class="row mt-2">
-				        	<div class="col">
-				                <label for="image">Image</label>
-				                <input type="file" id="image" class="form-control-file" name="image">
-
-				                <img src="{{ Storage::url($course->image->url) }}" id="preview-image" class="mt-2">
-				        	</div>
-				        </div>
-
-				        <hr>
-
-				        <div class="row mt-3">
-				        	<div class="col">
-				        		<button type="submit" class="btn btn-primary">Update</button>
-				        	</div>
-				        </div>
-				    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
+					        <div class="row mt-3">
+					        	<div class="col">
+					        		<button type="submit" class="btn btn-primary">Update</button>
+				                    <a href="{{ route('backend.orders.index') }}">
+				                        <button type="button" class="btn btn-outline-secondary float-right"><i class="fas fa-arrow-left"></i> Go Back</button>
+				                    </a>
+					        	</div>
+					        </div>
+					    </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>	
+	</div>
+	
 @endsection
 
 @push('scripts')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@3.1.0/js/froala_editor.pkgd.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
 
 	<script>
 		$(document).ready(function() {
-			let category = $('#category').selectize({
-				maxItems: 25,
+			$('#payment-status').selectize({})
+
+			let arrowDownIconClass = 'fas fa-arrow-down'
+			let closeIconClass = 'fas fa-times'
+
+			$('.orders-container').on('click', '.close-card', function() {
+				$(this).next().slideUp()
+
+				$('#icon-single-order').removeClass().addClass(arrowDownIconClass)
+
+				$(this).removeClass('close-card').addClass('open-card')
 			})
 
-			axios
-				.get('/api/courses/{{ $course->id }}')
-				.then(response => {
-					const course = response.data
-					const courseCategories = course.course_categories
+			$('.orders-container').on('click', '.open-card', function() {
+				$(this).next().slideDown()
 
-					let courseCategoriesID = []
-					for (let i = 0; i < courseCategories.length; i++) {
-						courseCategoriesID.push(courseCategories[i].id)
-					}
+				$('#icon-single-order').removeClass().addClass(closeIconClass)					
 
-					category[0].selectize.setValue(courseCategoriesID)
-				})
+				$(this).removeClass('open-card').addClass('close-card')
+			})
 
-			createFroalaEditor('overviewEditor', 'overview', "Write course's overview...", 'input-overview')
-			createFroalaEditor('recipesEditor', 'recipes', "Write course's recipes...", 'input-recipes')
-			createFroalaEditor('stepsEditor', 'steps', "Write course's steps...", 'input-steps')
-			createFroalaEditor('notesEditor', 'notes', "Write course's notes...", 'input-notes')
+			$('#bundle-category').on('change', function() {
+				$('.course-names').empty()
 
-			function createFroalaEditor(froalaEditorName, elementID, placeholder, elementInputClassName) {
-				var froalaEditorName = new FroalaEditor(`#${elementID}`, {
-					placeholderText: placeholder,
-					events: {
-						'charCounter.update': function () {
-							let froalaText = froalaEditorName.html.get()
+				let bundleId = $(this).val()
 
-							$(`.${elementInputClassName}`).val(froalaText)
-						},
-						'html.set': function(html) {
-							let froalaText = froalaEditorName.html.get()
+				axios
+					.get(`/api/courses/bundle/${bundleId}`)
+					.then(response => {
+						let courses = response.data.courses
 
-							$(`.${elementInputClassName}`).val(froalaText)
+						let totalCourse = courses.length
+						for (let i = 0; i < totalCourse; i++) {
+							let courseNameElement = `<p>${courses[i].name}</p>`
+
+							$('.course-names').append(courseNameElement)
 						}
-					}
-				})				
-			}
 
-			$('#image').on('change', function(event) {
-				var previewImage = document.getElementById('preview-image')
-			    previewImage.src = URL.createObjectURL(event.target.files[0])
-			    previewImage.onload = function() {
-				    URL.revokeObjectURL(previewImage.src) 
-			    }
-
-			    $('#preview-image').css({
-			    	'width': '500px',
-			    	'height': '500px',			    	
-			    })
+						$('.bundle-total-price').text(formatRupiah(response.data.price))
+						$('.bundle-total-course').text(totalCourse)
+					})
 			})
+
+			function formatRupiah(number){
+				var	numberString = number.toString(),
+					sisa 	= numberString.length % 3,
+					rupiah 	= numberString.substr(0, sisa),
+					ribuan 	= numberString.substr(sisa).match(/\d{3}/g);
+						
+				if (ribuan) {
+					separator = sisa ? '.' : '';
+					rupiah += separator + ribuan.join('.');
+				}
+
+				return `Rp${rupiah},00`
+			}
 		})
 	</script>
 @endpush

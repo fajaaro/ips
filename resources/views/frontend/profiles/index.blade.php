@@ -2,6 +2,11 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('frontend/style/main.css') }}">
+    <style type="text/css">
+        .box-title {
+            height: 60px;
+        }
+    </style>
 @endpush
 
 @push('fonts')
@@ -45,9 +50,13 @@
             @foreach ($user->courses as $course)
                 <div class="col-lg-4 mb-3">
                     <div class="card" style="width: 100%;">
-                        <a href=""><img class="card-img-top" src="{{ Storage::url($course->image->url) }}" alt="Card image cap"></a>
+                        <a href="{{ route('frontend.courses.watch', ['id' => $course->id]) }}">
+                            <img class="card-img-top" src="{{ $course->image ? Storage::url($course->image->url) : Storage::url('course-images/default-2.png') }}" alt="Card image cap">
+                        </a>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $course->name }}</h5>
+                            <div class="box-title">
+                                <h5 class="card-title">{{ $course->name }}</h5>
+                            </div>
                             <img src="{{ asset('frontend/assets/icon/clock.svg') }}" alt="">
                             <p class="card-text ml-4">Valid until {{ formatDate($course->pivot->expired_at, 'd F Y') }}</p>
                         </div>

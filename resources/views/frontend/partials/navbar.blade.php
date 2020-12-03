@@ -27,8 +27,8 @@
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">Hi, {{ Auth::user()->first_name }}</a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ route('frontend.profiles.index') }}" class="dropdown-item" style="color: #000000;">My Account</a>
-                        <a href="{{ route('logout') }}" class="dropdown-item" style="color: #000000;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                        <a href="{{ route('frontend.profiles.index') }}" class="dropdown-item" style="color: #000000 !important;">My Account</a>
+                        <a href="{{ route('logout') }}" class="dropdown-item" style="color: #000000 !important;" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

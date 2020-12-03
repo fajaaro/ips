@@ -15,7 +15,7 @@
                             <tr>
                                 <th scope="col" width="10">#</th>
                                 <th scope="col">Invoice Number</th>
-                                <th scope="col">Course Name</th>
+                                <th scope="col">Type</th>
                                 <th scope="col">User</th>
                                 <th scope="col">Total Price</th>                                
                                 <th scope="col">Payment Status</th>                                
@@ -29,7 +29,13 @@
                                 <tr>
                                     <th scope="row" width="10">{{ $loop->iteration }}</th>
                                     <td>{{ $order->invoice_number }}</td>
-                                    <td>{{ $order->course->name }}</td>
+                                    <td>
+                                        @if ($order->course_id)
+                                            Single ({{ $order->course->name }})
+                                        @else 
+                                            Bundle ({{ $order->bundle->name }})
+                                        @endif
+                                    </td>
                                     <td>{{ $order->user->first_name }} {{ $order->user->last_name }}</td>
                                     <td>{{ formatRupiah($order->total_price) }}</td>
                                     <td>
@@ -54,11 +60,13 @@
                                             </span>
                                         </a>
 
-                                        <a href="{{ route('backend.orders.edit', ['id' => $order->id]) }}">
-                                            <span class="badge badge-warning badge-action" data-toggle="tooltip" data-placement="bottom" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </span>                                            
-                                        </a>
+                                        @if ($order->payment_status == 'unpaid')
+                                            <a href="{{ route('backend.orders.edit', ['id' => $order->id]) }}">
+                                                <span class="badge badge-warning badge-action" data-toggle="tooltip" data-placement="bottom" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </span>                                            
+                                            </a>
+                                        @endif
 
                                         <span class="badge badge-danger badge-action remove-order" data-toggle="tooltip" data-placement="top" title="Remove"> 
                                             <i class="far fa-trash-alt"></i>
