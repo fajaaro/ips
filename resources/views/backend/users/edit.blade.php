@@ -104,6 +104,9 @@
 				        <div class="row mt-3">
 				        	<div class="col">
 				        		<button type="submit" class="btn btn-primary">Update</button>
+				        		<a href="{{ url()->previous() }}">
+	                                <button type="button" class="btn btn-outline-secondary float-right"><i class="fas fa-arrow-left"></i> Go Back</button>
+	                            </a>
 				        	</div>
 				        </div>
 				    </form>

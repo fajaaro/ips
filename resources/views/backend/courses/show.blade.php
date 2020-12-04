@@ -49,12 +49,16 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('backend.courses.edit', ['id' => $course->id]) }}">
-	                    <button type="button" class="btn btn-warning btn-sm">Edit</button>
-                    </a>
-                    <a href="{{ route('backend.courses.index') }}">
-                        <button type="button" class="btn btn-outline-secondary btn-sm float-right"><i class="fas fa-arrow-left"></i> Go Back</button>
-                    </a>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <a href="{{ route('backend.courses.edit', ['id' => $course->id]) }}">
+        	                    <button type="button" class="btn btn-warning">Edit</button>
+                            </a>
+                            <a href="{{ url()->previous() }}">
+                                <button type="button" class="btn btn-outline-secondary float-right"><i class="fas fa-arrow-left"></i> Go Back</button>
+                            </a>                            
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

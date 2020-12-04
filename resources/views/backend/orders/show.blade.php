@@ -7,47 +7,29 @@
 	<div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Course Details</div>
+                <div class="card-header">Order Details</div>
 
                 <div class="card-body">
-                    <img src="{{ Storage::url($course->image->url) }}" class="w-100 mb-3">
                     <div class="row">
                         <div class="col-md-5">
-                            <p><span class="font-weight-bold">Name:</span> {{ $course->name }}</p>
-                            <p><span class="font-weight-bold">Price:</span> {{ formatRupiah($course->price) }}</p>
-                            
-                            <p class="font-weight-bold">Overview:</p>
-                            <div>{!! $course->overview !!}</div>
-                            <p class="font-weight-bold">Recipes:</p>
-                            <div>{!! $course->recipes !!}</div>
-                            <p class="font-weight-bold">Steps:</p>
-                            <div>{!! $course->steps !!}</div>
-                            <p class="font-weight-bold">Notes:</p>
-                            <div>{!! $course->notes !!}</div>
-                            
-                            <p><span class="font-weight-bold">Added At:</span> {{ formatDate($course->created_at) }}</p>
-                            <p><span class="font-weight-bold">Last Update:</span> {{ formatDate($course->updated_at) }}</p>
-                        </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-6">
-                            <p class="font-weight-bold">Categories:</p>
-                            <ul>
-                                @foreach ($course->courseCategories as $category)
-                                    <li>{{ $category->name }}</li>
-                                @endforeach
-                            </ul>
+                            <p><span class="font-weight-bold">ID:</span> {{ $order->id }}</p>
+                            <p><span class="font-weight-bold">Invoice Number:</span> {{ $order->invoice_number }}</p>
+                            <p><span class="font-weight-bold">Customer Name:</span> {{ $order->user->first_name }} {{ $order->user->last_name }}</p>
+                            <p><span class="font-weight-bold">Type:</span> {{ $order->course_id ? 'Single (' . $order->course->name . ')' : 'Bundle (' . $order->bundle->name . ')' }}</p>
+                            <p><span class="font-weight-bold">Total Price:</span> {{ formatRupiah($order->total_price) }}</p>
+                            <p><span class="font-weight-bold">Payment Status:</span> {{ ucfirst($order->payment_status) }} {{ $order->payment_status == 'paid' ? '(' . formatDate($order->paid_at) . ')' : '' }}</p>
+                            <p><span class="font-weight-bold">Order Date:</span> {{ formatDate($order->created_at) }}</p>
 
-                            <p class="font-weight-bold">Video:</p>
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="{{ $course->courseVideo->url }}"></iframe>
-                            </div>
+                            @if ($order->courseUser)
+                                <p><span class="font-weight-bold">Expired At:</span> {{ formatDate($order->courseUser->expired_at) }}</p>
+                            @endif
                         </div>
                     </div>
 
-                    <a href="{{ route('backend.courses.edit', ['id' => $course->id]) }}">
+                    <a href="{{ route('backend.orders.edit', ['id' => $order->id]) }}">
 	                    <button type="button" class="btn btn-warning btn-sm">Edit</button>
                     </a>
-                    <a href="{{ route('backend.courses.index') }}">
+                    <a href="{{ route('backend.orders.index') }}">
                         <button type="button" class="btn btn-outline-secondary btn-sm float-right"><i class="fas fa-arrow-left"></i> Go Back</button>
                     </a>
                 </div>

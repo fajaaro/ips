@@ -95,7 +95,7 @@ class OrderService
 
 	public function update($request, $orderId)
 	{
-		if ($request->payment_status == 'paid') {
+		if ($request->payment_status == 'paid' && $order->payment_status == 'unpaid') {
 			$order = $this->setOrderToPaid($orderId);
 
 			if ($order->course_id) {

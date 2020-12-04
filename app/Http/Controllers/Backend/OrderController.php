@@ -47,6 +47,7 @@ class OrderController extends Controller
         $order = Order::with([
             'user', 
             'course', 
+            'bundle', 
             'courseUser'
         ])->where('id', $id)->first();
 
@@ -66,7 +67,11 @@ class OrderController extends Controller
     {
         $updatedOrder = $orderService->update($request, $id);
 
-        return redirect()->route('backend.orders.index')->with('success', 'Berhasil memperbarui data orderan milik ' . $updatedOrder->user->first_name . ' ' . $updatedOrder->user->last_name . '!');                    
+        if ($updatedOrder) {
+            return redirect()->route('backend.orders.index')->with('success', 'Berhasil memperbarui data orderan milik ' . $updatedOrder->user->first_name . ' ' . $updatedOrder->user->last_name . '!');                                
+        } else {
+            return redirect()->route('backend.orders.index')->with('failed', 'Gagal memperbarui data orderan!');
+        }
     }
 
     public function destroy($id, OrderService $orderService)

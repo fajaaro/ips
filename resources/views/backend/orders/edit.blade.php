@@ -48,11 +48,16 @@
 
 					        <div class="row mt-2">
 					            <div class="col">
-					                <label for="payment-status"><span class="star">*</span> Payment Status</label>
-					                <select id="payment-status" class="form-control" name="payment_status" required>
-				                    	<option value="paid" {{ $order->payment_status == 'paid' ? 'selected' : '' }}>Paid</option>
-				                    	<option value="unpaid" {{ $order->payment_status == 'unpaid' ? 'selected' : '' }}>Unpaid</option>
-					                </select>
+					            	@if ($order->payment_status == 'paid')
+						                <label for="payment-status"><span class="star">*</span> Payment Status</label>
+						                <input type="text" id="payment-status" class="form-control" name="payment_status" value="{{ ucfirst($order->payment_status) }}" required disabled>
+						            @else
+						                <label for="payment-status"><span class="star">*</span> Payment Status</label>
+						                <select id="payment-status" class="form-control" name="payment_status" required>
+					                    	<option value="paid">Paid</option>
+					                    	<option value="unpaid" selected>Unpaid</option>
+						                </select>						            
+					            	@endif
 					            </div>
 					        </div>    
 
@@ -61,7 +66,7 @@
 					        <div class="row mt-3">
 					        	<div class="col">
 					        		<button type="submit" class="btn btn-primary">Update</button>
-				                    <a href="{{ route('backend.orders.index') }}">
+				                    <a href="{{ url()->previous() }}">
 				                        <button type="button" class="btn btn-outline-secondary float-right"><i class="fas fa-arrow-left"></i> Go Back</button>
 				                    </a>
 					        	</div>
@@ -81,7 +86,9 @@
 
 	<script>
 		$(document).ready(function() {
-			$('#payment-status').selectize({})
+			@if ($order->payment_status == 'unpaid')
+				$('#payment-status').selectize({})
+			@endif
 
 			let arrowDownIconClass = 'fas fa-arrow-down'
 			let closeIconClass = 'fas fa-times'
