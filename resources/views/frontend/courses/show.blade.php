@@ -15,7 +15,7 @@
 @section('content')
     <section class="container course p-0">
         <section class="row course-header m-1">
-            <div class="col-lg-8" style="background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url({{ Storage::url($course->image->url) }}); background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{ Storage::url($course->image->url) }}); background-repeat: no-repeat; background-size: auto; padding: 30px; background-color: #ffffff; width: 780px; height: 340px; border-radius: 10px;">
+            <div class="col-lg-8" style="background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url({{ $course->image ? Storage::url($course->image->url) : Storage::url('course-images/default-2.png') }}); background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{ $course->image ? Storage::url($course->image->url) : Storage::url('course-images/default-2.png') }}); background-repeat: no-repeat; background-size: auto; padding: 30px; background-color: #ffffff; width: 780px; height: 340px; border-radius: 10px;">
 
                 <h1>{{ $course->name }}</h1>
                 <div class="desc d-flex justify-content-between">
