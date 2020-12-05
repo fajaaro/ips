@@ -23,15 +23,25 @@
 				        </div>
 
                 		<div class="row mt-2">
-				            <div class="col">
+				            <div class="col-md-6">
 				                <label for="category"><span class="star">*</span> Category</label>
-				                <select id="category" class="form-control" name="course_categories_id[]" required>
+				                <select id="category" class="form-control" name="category_id" required>
 				                    <option value="">Choose Course Category</option>
 				                    
-				                    @foreach ($courseCategories as $category)
+				                    @foreach ($categories as $category)
 				                    	<option value="{{ $category->id }}">{{ $category->name }}</option>
 				                    @endforeach				                    
 				                </select>
+				            </div>
+				            <div class="col-md-6">
+				            	<label for="bundles"><span class="star">*</span> Bundles</label>
+				            	<select id="bundles" class="form-control" name="bundles_id[]">
+				            		<option value="">Choose Bundles Category</option>
+
+				            		@foreach ($bundles as $bundle)
+				            			<option value="{{ $bundle->id }}">{{ $bundle->name }}</option>
+				            		@endforeach
+				            	</select>
 				            </div>
 				        </div>    
 
@@ -155,7 +165,9 @@
 	<script src="https://cdn.tiny.cloud/1/z7ech7bo4l8gldmxxrgfq3yuzp0cwtoegi5qaayqxilo0fir/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 	<script>
 		$(document).ready(function() {
-			$('#category').selectize({
+			let category = $('#category').selectize()
+
+			let bundles = $('#bundles').selectize({
 				maxItems: 25,
 			})
 

@@ -21,8 +21,9 @@ class CourseController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $bundles = Bundle::all();
 
-        return view('backend.courses.create', compact('categories'));
+        return view('backend.courses.create', compact('categories', 'bundles'));
     }
 
     public function store(Request $request, CourseService $courseService)
