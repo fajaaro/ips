@@ -15,6 +15,7 @@
                     @else 
                         <img src="{{ Storage::url('course-images/default.png') }}" class="w-100 mb-3">
                     @endif
+                    
                     <div class="row">
                         <div class="col-md-5">
                             <p><span class="font-weight-bold">Name:</span> {{ $course->name }}</p>

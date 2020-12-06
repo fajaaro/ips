@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\CourseUser;
+use App\Models\Order;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,8 +62,37 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->exists();
     }
 
+    public function activeCourses()
+    {
+        return CourseUser::where([
+            ['user_id', $this->id],
+            ['expired_at', '>=', now()]
+        ])->get();
+    }
+
     public function orders()
     {
         return $this->hasMany('App\Models\Order');
+    }
+
+    public function paidOrders()
+    {
+        return Order::where([
+            ['user_id', $this->id],
+            ['payment_status', 'paid']
+        ])->get();
+    }
+
+    public function unpaidOrders()
+    {
+        return Order::where([
+            ['user_id', $this->id],
+            ['payment_status', 'unpaid']
+        ])->get();
+    }
+
+    public function getFullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

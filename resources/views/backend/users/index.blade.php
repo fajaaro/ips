@@ -45,9 +45,11 @@
                                     </td>
                                     <td>{{ formatDate($user->created_at) }}</td>
                                     <td>
-                                        <span class="badge badge-info badge-action" data-toggle="tooltip" data-placement="top" title="Show Details">
-                                            <i class="fas fa-info-circle"></i>
-                                        </span>
+                                        <a href="{{ route('backend.users.show', ['id' => $user->id]) }}">
+                                            <span class="badge badge-info badge-action" data-toggle="tooltip" data-placement="top" title="Show Details">
+                                                <i class="fas fa-info-circle"></i>
+                                            </span>                                            
+                                        </a>
 
                                         <a href="{{ route('backend.users.edit', ['id' => $user->id]) }}">
                                             <span class="badge badge-warning badge-action" data-toggle="tooltip" data-placement="bottom" title="Edit">

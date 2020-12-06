@@ -48,23 +48,19 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $user = User::with([
+            'image', 
+            'role', 
+            'userAddress', 
+            'courses',
+            'orders'
+        ])->where('id', $id)->first();
+
+        return view('backend.users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = User::with('userAddress.subdistrict')->where('id', $id)->first();
@@ -74,13 +70,6 @@ class UserController extends Controller
         return view('backend.users.edit', compact('user', 'roles', 'subdistricts'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id, UserService $userService)
     {
         $updatedUser = $userService->update($request, $id);
