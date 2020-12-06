@@ -75,6 +75,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Order');
     }
 
+    public function hasUnpaidOrder($courseId = null, $bundleId = null)
+    {   
+        return Order::where([
+            ['user_id', $this->id],
+            [$courseId ? 'course_id' : 'bundle_id', $courseId ? $courseId : $bundleId],
+            ['payment_status', 'unpaid']
+        ])->exists();
+    }
+
     public function paidOrders()
     {
         return Order::where([

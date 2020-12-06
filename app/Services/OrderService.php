@@ -13,9 +13,10 @@ class OrderService
 {
 	public function create($request)
 	{
+		$buyer = User::find($request->user_id);
+
 		if ($request->order_type == 'single') {
-			$buyer = User::find($request->user_id);
-			if ($buyer->hasCourse($request->course_id)) return false;
+			if ($buyer->hasCourse($request->course_id) || $buyer->hasUnpaidOrder($request->course_id)) return false;
 			
 			$order = $this->createOrder($request, $request->course_id);
 	
@@ -23,6 +24,8 @@ class OrderService
 				$this->createCourseUser($order->id, $order->course_id, $order->user_id);
 			}				
 		} else if ($request->order_type == 'bundle') {
+			if ($buyer->hasUnpaidOrder(null, $request->bundle_id)) return false;
+
 			$order = $this->createOrder($request, null, $request->bundle_id);
 
 			if ($order->payment_status == 'paid') {
@@ -95,6 +98,8 @@ class OrderService
 
 	public function update($request, $orderId)
 	{
+		$order = Order::find($orderId);
+
 		if ($request->payment_status == 'paid' && $order->payment_status == 'unpaid') {
 			$order = $this->setOrderToPaid($orderId);
 

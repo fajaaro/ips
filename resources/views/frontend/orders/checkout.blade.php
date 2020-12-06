@@ -21,7 +21,8 @@
 @section('content')
 	<div class="container-fluid checkout-wrapper text-center">
 	    <h1 style="color: #3252DF;">Transaction Succes</h1>
-	    <img src="{{ asset('frontend/assets/checkout.png') }}" alt="Checkout.png" class="img-fluid mt-5">
+	    <h5 class="text-muted mt-3">Transaction ID: <span id="transaction-id">{{ $order->invoice_number }}</span></h5>
+	    <img src="{{ asset('frontend/assets/checkout.png') }}" alt="Checkout.png" class="img-fluid mt-3">
 	    <p class="text-muted mt-2">We will contact you soon through whatsapp, kindly screenshoot your transaction as a prove.</p>
 	</div>
 @endsection
