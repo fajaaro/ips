@@ -5,6 +5,13 @@
     background-image: url("../assets/bg.png");
     min-height: 1000px;
 
+ 
+    .ips-login-logo{
+      img{
+        max-width:150px;
+      max-height:150px; 
+      }
+    }
     .login-form {
       margin-top: 60px;
       max-width: 581px;
