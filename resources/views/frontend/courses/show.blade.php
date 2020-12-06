@@ -26,16 +26,21 @@
                         <p class="course-price m-0">Purchased</p>
                     @else
                         @if ($course->price > 0)
-                            <form action="{{ route('frontend.orders.store') }}" method="post" class="d-none">
-                                @csrf 
+                            @if (!Auth::user()->hasUnpaidOrder($course->id))
+                                <form action="{{ route('frontend.orders.store') }}" method="post" class="d-none">
+                                    @csrf 
 
-                                <input type="hidden" name="order_type" value="single">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="course_id" value="{{ $course->id }}">
+                                    <input type="hidden" name="order_type" value="single">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="course_id" value="{{ $course->id }}">
 
-                            </form>
+                                </form>
 
-                            <a href="#" class="course-btn m-0 btn-buy-course">Buy This Course</a> 
+                                <a href="#" class="course-btn m-0 btn-buy-course">Buy This Course</a> 
+                            @else
+                                <p class="course-btn m-0">Buyed</p>
+                            @endif
+                            
                             <p class="course-price m-0">{{ formatRupiah($course->price) }}</p>
                         @endif               
                     @endif
