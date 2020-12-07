@@ -98,7 +98,7 @@
         $(document).ready(function() {
             $('#orders-table').DataTable()
 
-            $('.remove-order').on('click', function() {
+            $('#orders-table').on('click', '.remove-order', function() {
                 $(this).next().submit()
             })
         })

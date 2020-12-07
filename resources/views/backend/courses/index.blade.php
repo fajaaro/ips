@@ -75,7 +75,7 @@
         $(document).ready(function() {
             $('#courses-table').DataTable()
 
-            $('.remove-course').on('click', function() {
+            $('#courses-table').on('click', '.remove-course', function() {
                 $(this).next().submit()
             })
         })

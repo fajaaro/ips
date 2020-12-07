@@ -85,9 +85,11 @@
         $(document).ready(function() {
             $('#users-table').DataTable()
 
-            $('.remove-user').on('click', function() {
+            $('#users-table').on('click', '.remove-user', function() {
                 $(this).next().submit()
             })
         })
     </script>
+
+    <script src="{{ asset('js/my-datatables.js') }}"></script>
 @endpush

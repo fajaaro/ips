@@ -7,7 +7,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Section:</h6>
             <a class="collapse-item" href="{{ route('backend.courses.index') }}">List Courses</a>
-            <a class="collapse-item" href="{{ route('backend.courseCategories.index') }}">Categories</a>
+            <a class="collapse-item" href="{{ route('backend.course-categories.index') }}">Categories</a>
         </div>
     </div>
 </li>

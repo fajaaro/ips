@@ -12,7 +12,7 @@
                 <div class="card-header">Add New Course</div>
 
                 <div class="card-body">
-                	<form action="{{ route('backend.courseCategories.store') }}" method="post">
+                	<form action="{{ route('backend.course-categories.store') }}" method="post">
                 		@csrf
 
 				        <div class="row">
