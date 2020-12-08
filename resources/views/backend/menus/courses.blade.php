@@ -8,6 +8,7 @@
             <h6 class="collapse-header">Section:</h6>
             <a class="collapse-item" href="{{ route('backend.courses.index') }}">List Courses</a>
             <a class="collapse-item" href="{{ route('backend.course-categories.index') }}">Categories</a>
+            <a class="collapse-item" href="{{ route('backend.course-bundles.index') }}">Bundles</a>
         </div>
     </div>
 </li>

@@ -9,17 +9,21 @@
 	<div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">Edit Category</div>
+                <div class="card-header">Edit Bundle</div>
 
                 <div class="card-body">
-                	<form action="{{ route('backend.course-categories.update', ['id' => $category->id]) }}" method="post">
+                	<form action="{{ route('backend.course-bundles.update', ['id' => $bundle->id]) }}" method="post">
                 		@csrf
                 		@method('put')
 
 				        <div class="row">
-				            <div class="col">
-				                <label for="name"><span class="star">*</span> Category Name</label>
-				                <input type="text" id="name" class="form-control" name="name" placeholder="Input Category Name" value="{{ $category->name }}" required>
+				            <div class="col-8">
+				                <label for="name"><span class="star">*</span> Bundle Name</label>
+				                <input type="text" id="name" class="form-control" name="name" placeholder="Input Bundle Name" value="{{ $bundle->name }}" required>
+				            </div>
+				            <div class="col-4">
+				                <label for="price"><span class="star">*</span> Bundle Price</label>
+				                <input type="number" id="price" class="form-control" name="price" placeholder="Input Bundle Price" value="{{ $bundle->price }}" required>
 				            </div>
 				        </div>  
 
