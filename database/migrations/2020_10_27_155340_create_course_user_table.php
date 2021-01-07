@@ -13,7 +13,8 @@ class CreateCourseUserTable extends Migration
             $table->foreignId('order_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamp('expired_at', 0);
+            $table->boolean('finished')->default(0);
+            $table->timestamp('expired_at', 0)->nullable();
         });
     }
 

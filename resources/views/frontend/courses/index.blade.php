@@ -7,6 +7,15 @@
             background-color: #fdbe12;
             font-weight: 500;
         }
+        #btn-purchased {
+            background-color: #383485;
+            border-color: #383485;
+            position: absolute;
+            float: right;
+            right: 0;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
     </style>
 @endpush
 
@@ -74,7 +83,12 @@
                         @foreach ($courses as $course)
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100">
-                                    <a href="{{ route('frontend.courses.show', ['id' => $course->id]) }}"><img class="card-img-top w-100 h-100" src="{{ $course->image ? Storage::url($course->image->url) : Storage::url('course-images/default-2.png') }}" alt=""></a>
+                                    <a href="{{ route('frontend.courses.show', ['id' => $course->id]) }}">
+                                        @if (Auth::user()->hasCourse($course->id))
+                                            <button class="btn btn-primary" id="btn-purchased" disabled>PURCHASED</button>
+                                        @endif
+                                        <img class="card-img-top w-100 h-100" src="{{ $course->image ? Storage::url($course->image->url) : Storage::url('course-images/default-2.png') }}" alt="">
+                                    </a>
                                     <div class="card-body">
                                         <h4 class="card-title">
                                             <a href="{{ route('frontend.courses.show', ['id' => $course->id]) }}">{{ $course->name }}</a>

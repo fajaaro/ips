@@ -17,3 +17,4 @@ Route::get('/provinces/{code}', [RegisterController::class, 'getProvince'])->nam
 
 Route::get('/courses/bundle/{id}', [CourseController::class, 'getBundleCourses'])->name('api.courses.getBundleCourses');
 Route::get('/courses/{id}', [CourseController::class, 'getCourse'])->name('api.courses.getCourse');
+Route::put('/courses/finish-course', [CourseController::class, 'finishCourse'])->name('api.courses.finishCourse');

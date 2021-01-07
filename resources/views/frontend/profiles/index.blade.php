@@ -6,6 +6,15 @@
         .box-title {
             height: 60px;
         }
+        #btn-finished {
+            background-color: #383485;
+            border-color: #383485;
+            position: absolute;
+            float: right;
+            right: 0;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
     </style>
 @endpush
 
@@ -51,6 +60,9 @@
                 <div class="col-lg-4 mb-3">
                     <div class="card" style="width: 100%;">
                         <a href="{{ route('frontend.courses.watch', ['id' => $course->id]) }}">
+                            @if ($course->pivot->finished)
+                                <button class="btn btn-primary" id="btn-finished">FINISHED</button>
+                            @endif
                             <img class="card-img-top" src="{{ $course->image ? Storage::url($course->image->url) : Storage::url('course-images/default-2.png') }}" alt="Card image cap">
                         </a>
                         <div class="card-body">

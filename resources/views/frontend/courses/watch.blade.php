@@ -2,6 +2,11 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('frontend/style/main.css') }}">
+    <style>
+        #btn-finished {
+            background-color: #383485;
+        }
+    </style>
 @endpush
 
 @push('fonts')
@@ -30,7 +35,11 @@
             <div class="col-lg-7 p-0">
                 <div class="course-title-header d-flex justify-content-between align-items-center">
                     <h6 class="mt-4">{{ $course->name }}</h6>
-                    <a href="index.html" class="btn btn-primary">FINISH</a>
+                    @if (!$courseUser->finished)
+                        <button class="btn btn-primary" id="btn-finish">FINISH</button>
+                    @else
+                        <button class="btn btn-primary" id="btn-finished">FINISHED</button>
+                    @endif
                 </div>
                 <div class="embed-responsive embed-responsive-16by9">
                     <div class="plyr__video-embed" id="player">
@@ -54,3 +63,25 @@
         </div>
     </footer>
 @endsection
+
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#btn-finish').on('click', function() {
+                data = {
+                    id: {{ $courseUser->id }}
+                }
+
+                axios
+                    .put('/api/courses/finish-course', data)
+                    .then(response => {
+                        $('#btn-finish').css('backgroundColor', '#383485')
+                        $('#btn-finish').text('FINISHED')
+                        $('#btn-finish').prop('disabled', true)
+                    })                
+            })
+        })
+    </script>
+@endpush 

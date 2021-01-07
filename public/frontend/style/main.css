@@ -226,6 +226,10 @@ header .btn-get-started:hover {
   opacity: 0.5;
 }
 
+.profile-course .row .col-lg-4 .card a button {
+  z-index: 100;
+}
+
 .profile-course .row .col-lg-4 .card .card-body img {
   max-width: 20px;
   height: 20px;

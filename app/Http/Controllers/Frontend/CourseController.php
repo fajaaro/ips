@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Bundle;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\CourseUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -46,7 +48,11 @@ class CourseController extends Controller
     public function watch($id)
     {
         $course = Course::with('courseVideo')->where('id', $id)->first();
+        $courseUser = CourseUser::where([
+            ['course_id', $id],
+            ['user_id', Auth::user()->id],
+        ])->first();
 
-        return view('frontend.courses.watch', compact('course'));        
+        return view('frontend.courses.watch', compact('course', 'courseUser'));        
     }
 }

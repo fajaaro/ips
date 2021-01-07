@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
 use App\Models\Bundle;
+use App\Models\Course;
+use App\Models\CourseUser;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -26,5 +27,14 @@ class CourseController extends Controller
     	$bundle = Bundle::with('courses')->where('id', $id)->first();
 
     	return response()->json($bundle);
+    }
+
+    public function finishCourse(Request $request)
+    {
+        $courseUser = CourseUser::find($request->id);
+        $courseUser->finished = 1;
+        $courseUser->save();
+
+        return response()->json($courseUser);
     }
 }

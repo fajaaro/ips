@@ -34,12 +34,6 @@
                         <a href="{{ route('frontend.courses.index') . '?type=bundle' }}" class="nav-link">Bundle</a>
                     </li>
                     <li class="nav-item mx-md-2">
-                        <a href="courses.html" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item mx-md-2">
-                        <a href="courses.html" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item mx-md-2">
                         <a href="#" class="nav-link">
                             @if (Auth::user()->image)
                                 <img src="{{ Storage::url(Auth::user()->image->url) }}" width="40" height="40" class="rounded-circle" alt="">

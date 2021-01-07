@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function courses()
     {
-        return $this->belongsToMany('App\Models\Course')->withPivot('expired_at');
+        return $this->belongsToMany('App\Models\Course')->withPivot('finished', 'expired_at');
     }
 
     public function hasCourse($id)

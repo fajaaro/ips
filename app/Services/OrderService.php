@@ -68,14 +68,18 @@ class OrderService
 
 	private function createCourseUser($orderId, $courseId, $userId)
 	{
-		$courseUser = new CourseUser();
-		$courseUser->order_id = $orderId;
-		$courseUser->course_id = $courseId;
-		$courseUser->user_id = $userId;
-		$courseUser->expired_at = Carbon::now()->addYear();
-		$courseUser->save();
+		$user = User::find($userId);
 
-		return $courseUser;						
+		if (!$user->hasCourse($courseId)) {
+			$courseUser = new CourseUser();
+			$courseUser->order_id = $orderId;
+			$courseUser->course_id = $courseId;
+			$courseUser->user_id = $userId;
+			$courseUser->expired_at = Carbon::now()->addYear();
+			$courseUser->save();			
+	
+			return $courseUser;						
+		}
 	}
 
 	private function setOrderToPaid($id)
