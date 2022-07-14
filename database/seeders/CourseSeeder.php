@@ -254,7 +254,7 @@ class CourseSeeder extends Seeder
             }
             
             $course->name = $coursesName[$i];
-            $course->price = 0;
+            $course->price = 1500000;
             $course->save();
 
             $course->bundles()->attach($selectedBundle->id);
